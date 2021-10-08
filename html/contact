@@ -33,7 +33,7 @@ with this software. If not, see
 		width: auto;
 	}
 	.fingerprint {
-		text-align: right;
+		float: right;
 	}
 	body, html {
 		margin: 0;
