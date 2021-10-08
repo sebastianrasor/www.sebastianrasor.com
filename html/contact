@@ -20,7 +20,7 @@ with this software. If not, see
 <meta name=viewport content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.sebastianrasor.com/contact">
 <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 <form action="/cgi-bin/contact.php" method="post">
 	<p><label for="firstname">Name:<br></label>
 	<input type="text" id="firstname" name="firstname" pattern="^[a-zA-Z ]*$" placeholder="John Smith" required>

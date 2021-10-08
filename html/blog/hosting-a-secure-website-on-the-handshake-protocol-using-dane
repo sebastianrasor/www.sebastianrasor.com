@@ -20,7 +20,7 @@ with this software. If not, see
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.sebastianrasor.com/blog/hosting-a-secure-website-on-the-handshake-protocol-using-dane">
 <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 <article>
 	<header>
 		<h1 id="handshake-is-really-cool">Handshake is <em>really</em> cool.</h1>

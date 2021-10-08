@@ -20,7 +20,7 @@ with this software. If not, see
 <meta name=viewport content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.sebastianrasor.com/hall-of-fame">
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 <article>
 <p>I would like to thank the following researchers:
 <ul>
