@@ -9,13 +9,6 @@ body, html {
 	margin: 0;
 	padding: 0;
 }
-header {
-	position: absolute;
-	top: 1ex;
-	left: 0;
-	right: 0;
-	text-align: center;
-}
 article {
 	max-width: 40em;
 	margin: auto;
