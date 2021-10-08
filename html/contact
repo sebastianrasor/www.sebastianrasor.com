@@ -52,6 +52,15 @@ with this software. If not, see
 			color: white;
 			background-color: black;
 		}
+		a:link {
+			color: #9cf;
+		}
+		a:hover, a:visited:hover {
+			color: #cef;
+		}
+		a:visited {
+			color: #c9f;
+		}
 	}
 </style>
 <form action="/cgi-bin/contact.php" method="post">
