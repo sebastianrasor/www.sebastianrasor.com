@@ -55,10 +55,15 @@ with this software. If not, see
 	}
 </style>
 <form action="/cgi-bin/contact.php" method="post">
-	<p><label for="firstname">Name:<br></label><input type="text" id="firstname" name="firstname" pattern="^[a-zA-Z ]*$" placeholder="John Smith" required>
-	<p><label for="lastname">Last Name:<br></label><input type="text" id="lastname" name="lastname" pattern="^[a-zA-Z ]*$" placeholder="Smith">
-	<p><label for="email">Email address:<br></label><input type="email" id="email" name="email" placeholder="jsmith@example.com" required>
-	<p><label for="subject">Subject:<br></label><input type="text" id="subject" name="subject" placeholder="Howdy" required>
-	<p><label for="message">Message:<br></label><textarea name="message" placeholder="How's it been?" required></textarea>
+	<p><label for="firstname">Name:<br></label>
+	<input type="text" id="firstname" name="firstname" pattern="^[a-zA-Z ]*$" placeholder="John Smith" required>
+	<p><label for="lastname">Last Name:<br></label>
+	<input type="text" id="lastname" name="lastname" pattern="^[a-zA-Z ]*$" placeholder="Smith">
+	<p><label for="email">Email address:<br></label>
+	<input type="email" id="email" name="email" placeholder="jsmith@example.com" required>
+	<p><label for="subject">Subject:<br></label>
+	<input type="text" id="subject" name="subject" placeholder="Howdy" required>
+	<p><label for="message">Message: (<a href="/pub/ada7b8c9beab6e41aaa0236f5a22f7979b6072a3.asc">0x9B6072A3</a>)<br></label>
+	<textarea name="message" placeholder="How's it been?" required></textarea>
 	<p><input type="submit" value="Submit">
 </form> 
