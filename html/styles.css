@@ -11,6 +11,7 @@ body, html {
 }
 article {
 	max-width: 40em;
+	margin: auto;
 }
 input, textarea {
 	font-family: sans-serif;
