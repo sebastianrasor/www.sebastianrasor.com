@@ -20,59 +20,7 @@ with this software. If not, see
 <meta name=viewport content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.sebastianrasor.com/contact">
 <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
-<style>
-	input, textarea {
-		font-family: sans-serif;
-		font-size: 100%;
-		width: 100%;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-	}
-	input[type="submit"] {
-		width: auto;
-	}
-	.fingerprint {
-		float: right;
-	}
-	body, html {
-		margin: 0;
-		padding: 0;
-	}
-	body {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		max-height: -webkit-fill-available;
-	}
-	#lastname {
-		display: none;
-	}
-	label[for="lastname"] {
-		display: none;
-	}
-	input[type="submit"] {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	@media (prefers-color-scheme: dark) {
-		body {
-			color: white;
-			background-color: black;
-		}
-		a:link {
-			color: #9cf;
-		}
-		a:hover, a:visited:hover {
-			color: #cef;
-		}
-		a:visited {
-			color: #c9f;
-		}
-	}
-</style>
+<link rel="stylesheet" href="styles.css">
 <form action="/cgi-bin/contact.php" method="post">
 	<p><label for="firstname">Name:<br></label>
 	<input type="text" id="firstname" name="firstname" pattern="^[a-zA-Z ]*$" placeholder="John Smith" required>
