@@ -1,0 +1,62 @@
+==================================================================
+https://keybase.io/sebastianrasor
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.sebastianrasor.com
+  * I am sebastianrasor (https://keybase.io/sebastianrasor) on keybase.
+  * I have a public key with fingerprint ADA7 B8C9 BEAB 6E41 AAA0  236F 5A22 F797 9B60 72A3
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01160beb212d44ab609f755545378a7b855465da730cc164a56b6ca236daf9ae89270a",
+      "fingerprint": "ada7b8c9beab6e41aaa0236f5a22f7979b6072a3",
+      "host": "keybase.io",
+      "key_id": "5a22f7979b6072a3",
+      "kid": "01160beb212d44ab609f755545378a7b855465da730cc164a56b6ca236daf9ae89270a",
+      "uid": "53b0e169024f4e8e8e5d35ef5637ee19",
+      "username": "sebastianrasor"
+    },
+    "service": {
+      "hostname": "www.sebastianrasor.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1633409557,
+  "expire_in": 157680000,
+  "prev": "c80a6a7019b2d0c88e21382d2d1299e2625d8db4ebb260f1802b8ae32804bfec",
+  "seqno": 2,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtksFrFDEUxqe6hbYgasW9iRgvHpYlyUwyydqLB/8Bix4U3CaTN7vDtjNrZna3
+a9mLggjCIoiICEUQKSh61YP2Kot4FLT4D3jxJqKXmlnbg+DRzCGZx+/73pdH7h46
+6M1VL6MfDx6t2Ccz779qT13ZObOBdGaGqLGBOjDdYNVAXjQ7iUENhAnhWIOmhJog
+UJpjGYeMsYD5oVChFu7ImVGhj6OI8EAxrnmkqM+NiqUCIWmIFaqhOElbYLs2SQtn
+q0ypjaQGZwkBUUphp4mZojQOZShdo5Aq3wnbWV4qXDitcqgnmau5n+Y03j/4/5y7
+96ePrzEQLjEN4gCE+5jxGcSM+yEAkSWYg03VGjg6Bxe1SFRqVZ5ZNKq5iu0nEZTj
+Le+zxw0Gg/rfbD3K1pxX12ZFFmWrjmkXRTdvlB7FsDsVgW7u2TV1kho3V6fog82T
+LEUN4sioSEp/wn0/wJKxsIZgvZtYaCYlwUIusFvtshH0nWcksOIqxERqanAkBFDi
+C2qoIVRKoJwyI4wOQGvKcUwEploo8KnAgY4hQuUNr6UZalCXU7XKGSStVBU9C2i0
+cLtX8apz3onqqcqLrdeT7efpuWePT2f7T3H2QPkOvYX5I/uVGw+93dH1b8N7H8dL
+dz4d3Xx1dea7XH86OG6XJ58nK6PFm28vznibnfs/d85vv3uze3Z+GS9eOLb06+Wl
+8Zet8Yfh7OGTtyq/AQ==
+=edl/
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/sebastianrasor
+
+==================================================================

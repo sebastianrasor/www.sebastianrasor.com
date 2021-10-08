@@ -1,0 +1,196 @@
+<!doctype html>
+
+<!--
+Hosting a secure website on the Handshake protocol using DANE
+Written in 2021 by Sebastian Riley Rasor
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the public
+domain worldwide. This software is distributed without any warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication along
+with this software. If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+
+<html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Sebastian Rasor - Hosting a secure website on the Handshake protocol using DANE</title>
+<meta name="description" content="A start to finish guide on how to host a secure website on the Handshake protocol using DANE and the OpenBSD suite of software">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.sebastianrasor.com/blog/hosting-a-secure-website-on-the-handshake-protocol-using-dane">
+<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
+<style>
+	@media (prefers-color-scheme: dark){
+		body {color:#fff;background:#000}
+		a:link {color:#9cf}
+		a:hover, a:visited:hover {color:#cef}
+		a:visited {color:#c9f}
+	}
+	body{
+		margin:1em auto;
+		max-width:40em;
+		padding:0 .62em;
+		font:1.2em/1.62 sans-serif;
+	}
+	code{
+		user-select:all;
+	}
+	footer{
+		text-align: center;
+	}
+	pre{
+		overflow-x:hidden;
+	}
+	h1,h2,h3 {
+		line-height:1.2;
+	}
+	@media print{
+		body{
+			max-width:none
+		}
+	}
+</style>
+<article>
+	<header>
+		<h1 id="handshake-is-really-cool">Handshake is <em>really</em> cool.</h1>
+		<aside>Unfortunately it can also be really difficult.</aside>
+	</header>
+	<h2 id="where-do-i-start">Where do I start?</h2>
+	<p>First you'll need to purchase some HNS coins. There's quite a few places to do this, but we're gonna be using Namebase. Once you <a title="Sign Up" href="https://www.namebase.io/register">sign up</a>, there's an extremely simple process to <a title="Buy HNS" href="https://www.namebase.io/buy">buy HNS</a>.
+	<h3 id="buy-your-perfect-name">Buy your perfect name.</h3>
+	<p>Once you've got some HNS to spend, it's time to <a title="Find A Name" href="https://www.namebase.io/domains">find a name</a>. Once you find your desired name, it's time to bid on it. On Handshake, names are bid on in a decentralized <a title="Vickrey auction" href="https://en.wikipedia.org/wiki/Vickrey_auction">Vickrey auction</a>. If you've never taken part in a Vickrey auction give that page a quick read, it will explain everything you need to know about Vickrey auctions as a concept. However, there are some things specific to Handshake that you'll need to know:
+	<ul>
+		<li>The time it takes between an auction being started and the name being useable is roughly 15 days. There are ~5 days to place bids, and then a ~10 day reveal period.
+		<li>Blinds are completely optional and only exist as a way for you to hide the true value of your bid. Any HNS coins used in a blind will be returned when you reveal your bid.
+		<li>If you are the only person who bids in an auction, you will receive the name for free.
+		<li>You cannot change your bid, but you can place another bid. If a name is important to you, you should always bid the maximum amount you are willing to pay for it.
+	</ul>
+	<h3 id="how-do-i-access-handshake-names">How do I access Handshake names?</h3>
+	<p>Check out <a href="https://www.hdns.io/">HDNS</a>.
+	<p>Once you can access Handshake names, you probably want to be able to access them securely. We can do that with <a title="Let's DANE" href="https://github.com/buffrr/letsdane">Let's DANE</a>. Let's DANE is a proxy server that acts as a CA for any secured websites.
+	<h2 id="host-your-website-on-the-new-internet">Host your website on the new internet.</h2>
+	<p>Now that you own a Handshake name, you probably wanna do something with it. Before we get into that, I'd like to share the technical stack that we'll be using:
+	<ul>
+		<li>We will be using an OpenBSD server hosted on Vultr.
+		<li>Webpages will be served using OpenBSD's HTTP daemon.
+		<li>We will host our DNS records with NSD.
+	</ul>
+	<h3 id="deploy-a-vps">Deploy a VPS.</h3>
+	<p>I prefer using Vultr for my hosting needs because its plans start at $2.50/month (effectively $3.50/month with IPv4) and provides OpenBSD as a default option. If you use my <a title="Vultr Affiliate Link" href="https://www.vultr.com/?ref=8685878-6G">affiliate link</a> you'll get $100 credit to use over the next 30 days, perfect for testing the platform out. Once you have registered an account and linked a payment method, you'll want to <a title="Deploy an Instance" href="https://my.vultr.com/deploy/">deploy an instance</a>. Different locations have different plans available, so if you're looking for the cheapest available be sure to check every location. We'll be selecting OpenBSD 6.8 with IPv6 enabled. Feel free to add your SSH key and set the hostname and label before deploying the instance.
+	<h3 id="tell-handshake-where-your-vps-is">Tell Handshake where your VPS is.</h3>
+	<p>While we're waiting for our instance to finish installing, let's check out the Namebase <a title="Domain Manager" href="https://www.namebase.io/domain-manager">domain manager</a>. Click the "Manage" button next to your purchased name, then scroll down until you see "Blockchain DNS records" and "Namebase nameserver DNS records." Since we bought our Handshake name on Namebase, they've already pointed the Handshake name to the Namebase nameserver. We can choose to either continue using Namebase's nameserver to host our DNS records, or we can host them ourselves. I personally choose to host the records myself as Namebase restricts which kinds of records you can use and self hosting grants me much better control.
+	<p>Since we're setting up DNSSEC later on, we're gonna go ahead and skip setting the nameserver now. We'll set it at the same time that we set the DS record.
+	<h3 id="set-up-nsd">Set up NSD.</h3>
+	<p>By now your Vultr instance should have completed installing. Go ahead and SSH into it, then start editing <code>/var/nsd/etc/nsd.conf</code> with an editor of your choice. The defaults are fine, but you'll want to specify a zone for NSD to serve.
+	<pre><code>zone:
+	name: "yourname"
+	zonefile: "master/yourname.zone"</code></pre>
+	<p>
+	Once you've got that done, go ahead and edit <code>/var/nsd/zones/master/yourname.zone</code> with an editor of your choice. NSD uses BIND-style zone files, if that means something to you go ahead and start setting up your records. You know what you're doing. For the rest of us, here's the current zone file for <code>rasor</code>:
+	<pre><code>$ORIGIN rasor.
+$TTL 5m
+
+@                    IN  A      45.77.111.169
+                     IN  AAAA   2001:19f0:5:113a:5400:03ff:fe2e:d9f8
+                     IN  NS     rasor.
+                     IN  SOA    rasor. sebastian.rasor. (
+                                2021020401      ; serial
+                                1h              ; refresh
+                                30m             ; retry
+                                7d              ; expire
+                                1h )            ; negative
+                     IN  MX     0 rasor.
+                     IN  TXT    "v=spf1 mx -all"
+                     IN  SSHFP  1 1 159d8df12f7d7ca6506cc33060fa7195013c47fd
+                     IN  SSHFP  1 2 3d92cd60952f307410bc518b7ad993bd9d16214f6908f66e9dded2c4bc121d24
+                     IN  SSHFP  2 1 4ccee07581d3a35d34d931cd6bd023636dff7e50
+                     IN  SSHFP  2 2 8c6f3e253261d5995d678dba7c99345b2fcbe35c2b7e3dc9883010c3757ab38d
+                     IN  SSHFP  3 1 729f797e29ecc02fc58bd798f2fa9d582f3f3f7f
+                     IN  SSHFP  3 2 4bc643160fef3976ec4b444a39589458b9c610ba57bc76aac61dc3c834c4fc36
+                     IN  SSHFP  4 1 cc52f0de2b68f7328fc043ed2d56c36cc5cb0095
+                     IN  SSHFP  4 2 c2a633e14b83178f5c5061124e74adb8730f206d0f7b58cf39f9ece764e8eb31
+20210204._domainkey  IN  TXT    "v=DKIM1;k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQClEb0aN4JduIFFDhD9Q5lKwpwG66cEJBq3nqshaQt64MTiKCEpJGSjZZ0JxYnZb/XxjgCJS11891CaM8u8mKsZ0W7BSZI2Ts/HbTqFunG2D86/qTOvpzCfgZoevmrCDC3r5gCfhJaRiSpkdnox+qcHyoYs1bXdkzoxjlEtK6yoQwIDAQAB;"
+_dmarc               IN  TXT    "v=DMARC1;p=none;pct=100;rua=mailto:postmaster@rasor;"
+_submission._tcp     IN  SRV    0 1 587 rasor.
+_imaps._tcp          IN  SRV    0 1 993 rasor.
+
+_tlsa                IN  TLSA   3 1 1 688e9b68a531d810c3ad1cc52f8aa330e595b1f2d55e69cbf663d002a259854e
+_993._tcp            IN  CNAME  _tlsa
+_587._tcp            IN  CNAME  _tlsa
+_443._tcp            IN  CNAME  _tlsa
+_25._tcp             IN  CNAME  _tlsa
+
+
+ns1.sebastian        IN  A      45.77.111.169
+sebastian            IN  DS     62890 8 2 acd7c0ec4de58bbf9a99bb8fc73e53c177be6b688d17b19c27a77c54799d876b</code></pre>
+	<p><em>Don't worry.</em> Right now the only records we need to worry about are the first 4: A, AAAA, NS, and SOA. The A and AAAA records should be the IPv4 and IPv6 addresses of your VPS, respectively. For NS just drop in your Handshake name and don't forget to leave a dot on the end of it. SOA is a bit more tricky. You should look up the specifics of how an SOA record is formatted to make sure you have a clear understanding of it before adding it to your zone file. NS and SOA records <em>are</em> required, and if you have any intention of accessing your website, so are A and AAAA.
+	<p>Once you're done editing those two files, you're gonna want to make sure that they're valid. We can do this by running
+	<br><code>nsd-checkconf /var/nsd/etc/nsd.conf</code>
+	<br>and
+	<br><code>nsd-checkzone yourname /var/nsd/zones/master/yourname.zone</code>.
+	<p>Now that we've validated our files, let's go ahead and start up NSD with
+	<br><code>rcctl enable nsd && rcctl start nsd</code>.
+	<p>Since we haven't published our NS record on the blockchain yet, we'll have to query our VPS directly to make sure it's working as intended.
+	<br><code>dig NS @your.vps.ip.address yourname</code>
+	<p>The response should look something like this: <pre><code>; <<>> dig 9.10.8-P1 <<>> ns yourname
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 64811
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 2
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;yourname.                      IN      NS
+
+;; ANSWER SECTION:
+yourname.               114     IN      NS      yourname.
+
+;; SIG0 PSEUDOSECTION:
+.                       0       ANY     SIG     RESERVED0 253 0 0 20210209181421 20210209061421 64797 . uX22PNkUEDka5wlTw7qIozS2ounyMyeA88Dh8LPUq/tldQm+FIBMgX6a luAKDrrw4NgKO2yD5Tb203wtFz1AfA==
+
+;; Query time: 50 msec
+;; SERVER: your.vps.ip.address#53(your.vps.ip.address)
+;; WHEN: Tue Feb 09 06:14:21 CST 2021
+;; MSG SIZE  rcvd: 142</code></pre>
+	<h3 id="sign-records-to-enable-dnssec">Sign records to enable DNSSEC.</h3>
+	<p>DNSSEC is way to cryptographically authenticate DNS records, and it is required for DANE. The first thing we're gonna do to set it up is install <code>ldns-utils</code>, because they're <em>great</em>. Unfortunately, the ldns-utils OpenBSD package wasn't compiled with engine support, so we'll need to compile ldns-utils ourselves.
+	<br><code>wget https://www.nlnetlabs.nl/downloads/ldns/ldns-1.7.1.tar.gz</code>
+	<br><code>tar -zxvf ldns-1.7.1.tar.gz</code>
+	<br><code>cd ldns-1.7.1</code>
+	<br><code>./configure --with-examples --disable-dane</code>
+	<br><code>make && make install</code>
+
+	<p>Now we'll create a directory for our keys.
+	<br><code>mkdir /var/nsd/keys && cd /var/nsd/keys</code>
+	<br>We'll then generate the key signing keypair and the zone signing keypair. Notice the -k flag when we generate the KSK.
+	<br><code>export KSK="$(ldns-keygen -k -a RSASHA256 -b 4096 yourname)" # generate ksk and export basename</code>
+	<br><code>export ZSK="$(ldns-keygen -a RSASHA256 -b 2048 yourname)" # generate zsk and export basename</code>
+	<br>Now that we have our keys, we need to sign our zone.
+	<br><code>export SALT="$(head -n 1000 /dev/urandom | sha256 | cut -b 1-16)"</code>
+	<br><code>ldns-signzone -n -s "$SALT" master/yourname.zone $KSK $ZSK</code>
+	<br>Then we'll need to tell NSD to use the signed zonefile. Just edit <code>/var/nsd/etc/nsd.conf</code> and replace
+	<br><code>zonefile: "master/yourname.zone"</code>
+	<br>with
+	<br><code>zonefile: "master/yourname.zone.signed"</code>
+	<br>The last step is to add the root zone DS record. Luckily ldns was kind enough to generate a DS record for us when we generated the KSK.
+	<br><code>cat $KSK.ds | sed "s/.*DS[[:space:]]*//g"</code>
+	<br>Head on over to the <a title="Domain manager" href="https://www.namebase.io/domain-manager">domain manager</a> and select your name, then scroll down until you see "Blockchain DNS records." Add a new record of type DS, and paste the output of the last command into the data field. While we're here, we can also update the NS record, simply change the IP address to the IP address of your VPS. Don't forget to hit the save button before you exit!
+
+	<h3 id="use-dane-to-enable-secure-https">Use DANE to enable secure HTTPS.</h3>
+	<p>Now that we have cryptographically secure DNS records, we can use those DNS records to enable HTTPS without a 3rd party certificate authority. First we'll need to generate a self-signed certificate. We can do that in one command:
+	<br><code>openssl req -newkey rsa:4096 -nodes -x509 -days 1825 -addext subjectAltName=DNS:yourname -keyout /etc/ssl/private/yourname.key -out /etc/ssl/yourname.crt</code>
+	<br>The only field you need to enter is the common name, which can be anything you want. We haven't actually configured httpd yet, so let's go ahead and do that. You can find a template httpd.conf <a href="/pub/httpd.conf">here</a>. Fill in your information and then copy your custom httpd.conf to <code>/etc/httpd.conf</code>.
+	<br>You'll also want to create a location for your website's files, like so:
+	<br><code>mkdir /var/www/htdocs/yourname</code>
+	<br>You can then edit <code>/var/www/htdocs/yourname/index.html</code> to your liking.
+
+	<p>The last thing that's left at this point is generating a TLSA record. You can do that by copying the contents of <code>/etc/ssl/yourname.crt</code> and using <a title="" href="https://www.huque.com/bin/gen_tlsa">this tool</a>. The defaults (3 1 1) are what we need. The port number for HTTPS is 443, and the protocol is tcp, then just put your Handshake name in and generate the key. It'll give you a record and all you'll need to do is add it to yourname.zone and resign it.
+
+	<footer>
+		<br>
+		<p>If this article helped you at all please consider leaving a tip!
+		<br><code>hs1qet8e6zltuep052t78y4vnt6nuxmmycxcrncjy3</code> :)
+	</footer>
+</article>

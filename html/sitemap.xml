@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://www.sebastianrasor.com</loc>
+	</url>
+	<url>
+		<loc>https://www.sebastianrasor.com/contact</loc>
+	</url>
+	<url>
+		<loc>https://www.sebastianrasor.com/blog/</loc>
+	</url>
+	<url>
+		<loc>https://www.sebastianrasor.com/blog/hosting-a-secure-website-on-the-handshake-protocol-using-dane</loc>
+	</url>
+	<url>
+		<loc>https://www.sebastianrasor.com/blog/achieving-a-perfect-rating-on-qualys-ssl-server-test-using-openbsd-httpd</loc>
+	</url>
+	<url>
+		<loc>https://git.sebastianrasor.com</loc>
+	</url>
+</urlset>

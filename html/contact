@@ -1,0 +1,64 @@
+<!doctype html>
+
+<!--
+contact - Allows visitors to send messages to me without exposing my email
+address
+Written in 2021 by Sebastian Riley Rasor
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the public
+domain worldwide. This software is distributed without any warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication along
+with this software. If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+
+<html lang="en"><head>
+<title>Sebastian Rasor - Contact</title>
+<meta name="description" content="contact me">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.sebastianrasor.com/contact">
+<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
+<style>
+	input, textarea {
+		font-family: sans-serif;
+		font-size: 100%;
+	}
+	body, html {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		max-height: -webkit-fill-available;
+	}
+	#lastname {
+		display: none;
+	}
+	label[for="lastname"] {
+		display: none;
+	}
+	input[type="submit"] {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	@media (prefers-color-scheme: dark) {
+		body {
+			color: white;
+			background-color: black;
+		}
+	}
+</style>
+<form action="/cgi-bin/contact.php" method="post">
+	<p><label for="firstname">Name:<br></label><input type="text" id="firstname" name="firstname" pattern="^[a-zA-Z ]*$" placeholder="John Smith" required>
+	<p><label for="lastname">Last Name:<br></label><input type="text" id="lastname" name="lastname" pattern="^[a-zA-Z ]*$" placeholder="Smith">
+	<p><label for="email">Email address:<br></label><input type="email" id="email" name="email" placeholder="jsmith@example.com" required>
+	<p><label for="subject">Subject:<br></label><input type="text" id="subject" name="subject" placeholder="Howdy" required>
+	<p><label for="message">Message:<br></label><textarea name="message" placeholder="How's it been?" required></textarea>
+	<p><input type="submit" value="Submit">
+</form> 
