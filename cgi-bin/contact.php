@@ -72,13 +72,13 @@ if($_POST) {
 	}
 
 	if(isset($_POST["firstname"])) {
-		$name = urldecode($_POST["firstname"]);
+		$name = $_POST["firstname"];
 	} else {
 		die("<p>Something went wrong.");
 	}
 
 	if(isset($_POST["email"])) {
-		$email = urldecode($_POST["email"]);
+		$email = $_POST["email"];
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			die("<p>Something went wrong.");
 		}
@@ -87,13 +87,13 @@ if($_POST) {
 	}
 
 	if(isset($_POST["subject"])) {
-		$subject = urldecode($_POST["subject"]);
+		$subject = $_POST["subject"];
 	} else {
 		die("<p>Something went wrong.");
 	}
 
 	if(isset($_POST["message"])) {
-		$message = urldecode($_POST["message"]);
+		$message = $_POST["message"];
 	} else {
 		die("<p>Something went wrong.");
 	}
