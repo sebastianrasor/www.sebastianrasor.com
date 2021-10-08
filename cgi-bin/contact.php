@@ -21,29 +21,7 @@ with this software. If not, see
 <meta name=viewport content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.sebastianrasor.com/cgi-bin/contact.php">
 <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
-<style>
-	input, textarea {
-		font-family: sans-serif;
-		font-size: 100%;
-	}
-	body, html {
-		margin: 0;
-		padding: 0;
-	}
-	body {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		max-height: -webkit-fill-available;
-	}
-	@media (prefers-color-scheme: dark) {
-		body {
-			color: #fff;
-			background-color: #000;
-		}
-	}
-</style>
+<link rel="stylesheet" href="/styles.css">
 <article>
 <?php
 
