@@ -64,6 +64,6 @@ with this software. If not, see
 	<p><label for="subject">Subject:<br></label>
 	<input type="text" id="subject" name="subject" placeholder="Howdy" required>
 	<p><label for="message">Message: (<a href="/pub/ada7b8c9beab6e41aaa0236f5a22f7979b6072a3.asc">0x9B6072A3</a>)<br></label>
-	<textarea name="message" placeholder="How's it been?" required></textarea>
+	<textarea id="message" name="message" placeholder="How's it been?" required></textarea>
 	<p><input type="submit" value="Submit">
 </form> 
