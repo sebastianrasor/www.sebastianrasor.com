@@ -10,7 +10,7 @@ body, html {
 	padding: 0;
 }
 article {
-	max-width: 40em;
+	max-width: 70%;
 	margin: auto;
 }
 input, textarea {
