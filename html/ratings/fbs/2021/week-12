@@ -21,7 +21,7 @@ with this software. If not, see
 <link rel="canonical" href="https://www.sebastianrasor.com/ratings/fbs/2021/week-12">
 <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css">
-
+<article>
 <h2>FBS EAPR Week 12</h2>
 <table>                                                                                                                              
 <thead>
@@ -56,3 +56,4 @@ with this software. If not, see
 </tbody>
 </table>
 <p>First five out: SMU, LIB, UTSA, AUB, CCU
+</article>
