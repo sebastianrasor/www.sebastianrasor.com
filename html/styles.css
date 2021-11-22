@@ -1,6 +1,7 @@
 body {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 	height: 100vh;
 	max-height: -webkit-fill-available;
@@ -64,4 +65,7 @@ input[type="submit"] {
 	body {
 		max-width: none;
 	}
+}
+thead tr th {
+	text-align: left;
 }

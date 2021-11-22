@@ -1,0 +1,58 @@
+<!doctype html>
+
+<!--
+week-11 - Rating teams in various sports and leagues
+Written in 2021 by Sebastian Riley Rasor
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the public
+domain worldwide. This software is distributed without any warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication along
+with this software. If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+
+<html lang="en">
+<title>Sebastian Rasor - Ratings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Rating teams in various sports and leagues">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.sebastianrasor.com/ratings/fbs/2021/week-11">
+<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css">
+
+<h2>FBS EAPR Week 11</h2>
+<table>
+<thead>
+<tr><th style="text-align: right;">  #</th><th>team                 </th><th style="text-align: right;">  overall</th><th style="text-align: right;">  offense</th><th style="text-align: right;">  defense</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right;">  1</td><td>Georgia (-)          </td><td style="text-align: right;">     37.9</td><td style="text-align: right;">     14.9</td><td style="text-align: right;">     22.9</td></tr>
+<tr><td style="text-align: right;">  2</td><td>Alabama (-)          </td><td style="text-align: right;">     31.1</td><td style="text-align: right;">     19.5</td><td style="text-align: right;">     11.6</td></tr>
+<tr><td style="text-align: right;">  3</td><td>Ohio State (-)       </td><td style="text-align: right;">     28.7</td><td style="text-align: right;">     21.3</td><td style="text-align: right;">      7.4</td></tr>
+<tr><td style="text-align: right;">  4</td><td>Michigan (-)         </td><td style="text-align: right;">     23.6</td><td style="text-align: right;">     12.8</td><td style="text-align: right;">     10.8</td></tr>
+<tr><td style="text-align: right;">  5</td><td>Wake Forest (-)      </td><td style="text-align: right;">     21.7</td><td style="text-align: right;">     17.4</td><td style="text-align: right;">      4.2</td></tr>
+<tr><td style="text-align: right;">  6</td><td>Pittsburgh (+1)      </td><td style="text-align: right;">     21.0</td><td style="text-align: right;">     17.6</td><td style="text-align: right;">      3.4</td></tr>
+<tr><td style="text-align: right;">  7</td><td>Cincinnati (-1)      </td><td style="text-align: right;">     20.6</td><td style="text-align: right;">     10.2</td><td style="text-align: right;">     10.4</td></tr>
+<tr><td style="text-align: right;">  8</td><td>Ole Miss (+1)        </td><td style="text-align: right;">     20.1</td><td style="text-align: right;">     13.6</td><td style="text-align: right;">      6.5</td></tr>
+<tr><td style="text-align: right;">  9</td><td>Boise State (+14)    </td><td style="text-align: right;">     19.3</td><td style="text-align: right;">      9.0</td><td style="text-align: right;">     10.3</td></tr>
+<tr><td style="text-align: right;"> 10</td><td>Wisconsin (nr)       </td><td style="text-align: right;">     18.8</td><td style="text-align: right;">      4.7</td><td style="text-align: right;">     14.1</td></tr>
+<tr><td style="text-align: right;"> 11</td><td>Utah (nr)            </td><td style="text-align: right;">     18.7</td><td style="text-align: right;">     12.1</td><td style="text-align: right;">      6.7</td></tr>
+<tr><td style="text-align: right;"> 12</td><td>Nebraska (-1)        </td><td style="text-align: right;">     18.7</td><td style="text-align: right;">      7.0</td><td style="text-align: right;">     11.7</td></tr>
+<tr><td style="text-align: right;"> 13</td><td>Auburn (-5)          </td><td style="text-align: right;">     18.2</td><td style="text-align: right;">      8.7</td><td style="text-align: right;">      9.6</td></tr>
+<tr><td style="text-align: right;"> 14</td><td>Penn State (-1)      </td><td style="text-align: right;">     18.2</td><td style="text-align: right;">      5.8</td><td style="text-align: right;">     12.4</td></tr>
+<tr><td style="text-align: right;"> 15</td><td>Texas A&amp;M (nr)       </td><td style="text-align: right;">     17.9</td><td style="text-align: right;">      2.6</td><td style="text-align: right;">     15.3</td></tr>
+<tr><td style="text-align: right;"> 16</td><td>Iowa State (nr)      </td><td style="text-align: right;">     17.8</td><td style="text-align: right;">      8.2</td><td style="text-align: right;">      9.6</td></tr>
+<tr><td style="text-align: right;"> 17</td><td>Oklahoma (-3)        </td><td style="text-align: right;">     17.7</td><td style="text-align: right;">     13.1</td><td style="text-align: right;">      4.7</td></tr>
+<tr><td style="text-align: right;"> 18</td><td>Oklahoma State (nr)  </td><td style="text-align: right;">     17.5</td><td style="text-align: right;">      3.2</td><td style="text-align: right;">     14.2</td></tr>
+<tr><td style="text-align: right;"> 19</td><td>NC State (-)         </td><td style="text-align: right;">     17.3</td><td style="text-align: right;">      5.6</td><td style="text-align: right;">     11.7</td></tr>
+<tr><td style="text-align: right;"> 20</td><td>Coastal Carolina (-2)</td><td style="text-align: right;">     17.1</td><td style="text-align: right;">      9.4</td><td style="text-align: right;">      7.7</td></tr>
+<tr><td style="text-align: right;"> 21</td><td>Marshall (nr)        </td><td style="text-align: right;">     17.1</td><td style="text-align: right;">      8.9</td><td style="text-align: right;">      8.2</td></tr>
+<tr><td style="text-align: right;"> 22</td><td>UTSA (nr)            </td><td style="text-align: right;">     17.0</td><td style="text-align: right;">     10.4</td><td style="text-align: right;">      6.6</td></tr>
+<tr><td style="text-align: right;"> 23</td><td>Baylor (-13)         </td><td style="text-align: right;">     17.0</td><td style="text-align: right;">      8.5</td><td style="text-align: right;">      8.5</td></tr>
+<tr><td style="text-align: right;"> 24</td><td>Notre Dame (-4)      </td><td style="text-align: right;">     16.9</td><td style="text-align: right;">     10.3</td><td style="text-align: right;">      6.5</td></tr>
+<tr><td style="text-align: right;"> 25</td><td>Appalachian State (-)</td><td style="text-align: right;">     16.9</td><td style="text-align: right;">     10.1</td><td style="text-align: right;">      6.8</td></tr>
+</tbody>
+</table>
+<p>First five out: TENN, CLEM, ORE, LIB, WKU
