@@ -21,7 +21,7 @@ with this software. If not, see
 <link rel="canonical" href="https://www.sebastianrasor.com/ratings/nfl/2021/week-10">
 <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css">
-<article>
+
 <h2>NFL EAPR Week 10</h2>
 <table>
 <thead>
@@ -62,4 +62,3 @@ with this software. If not, see
 <tr><td style="text-align: right;"> 32</td><td>Detroit Lions       </td><td style="text-align: right;">    -14.5</td><td style="text-align: right;">     -7.5</td><td style="text-align: right;">     -7.0</td></tr>
 </tbody>
 </table>
-</article>
