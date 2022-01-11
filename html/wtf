@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="Rating teams in various sports and leagues">
 <meta name=viewport content="width=device-width, initial-scale=1">
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 <link rel="canonical" href="https://www.sebastianrasor.com/ratings/fbs/2021/week-11">
 <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css">
-<article>
-<table>
+<table class='sortable'>
 <thead>
 <tr><th>Team                 </th><th style="text-align: right;">  Overall Rating</th><th style="text-align: right;">  Passing Offense</th><th style="text-align: right;">  Rushing Offense</th><th style="text-align: right;">  Total Offense</th><th style="text-align: right;">  Passing Defense</th><th style="text-align: right;">  Rushing Defense</th><th style="text-align: right;">  Total Defense</th></tr>
 </thead>
@@ -144,4 +144,3 @@
 <tr><td>UConn                </td><td style="text-align: right;">          -244.0</td><td style="text-align: right;">            -70.9</td><td style="text-align: right;">            -60.7</td><td style="text-align: right;">         -131.6</td><td style="text-align: right;">            -65.8</td><td style="text-align: right;">            -46.6</td><td style="text-align: right;">         -112.4</td></tr>
 </tbody>
 </table>
-</article>
