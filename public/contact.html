@@ -44,10 +44,12 @@
 
 	window.enableSubmit = () => {
 		document.getElementById("btnSubmit").disabled=false
+		document.getElementById("btnSubmit").value="Submit"
 	}
 
 	window.disableSubmit = () => {
 		document.getElementById("btnSubmit").disabled=true
+		document.getElementById("btnSubmit").value="Please wait..."
 	}
 	window.onbeforeunload = disableSubmit;
 
@@ -145,10 +147,11 @@
 	}
 	input[type=submit] {
 		background: var(--color);
+		border: none;
 		color: var(--background-color);
 		cursor: pointer;
 		line-height: 1em;
-		padding: 1ex;
+		padding: 8px 10px 7px 9px;
 		text-align: center;
 	}
 	.input-container {
@@ -201,6 +204,6 @@
 		<textarea id="message" name="message" placeholder=" " rows="4" cols="40" required></textarea>
 		<label for="message">Your Message</label>
 	</div>
-	<input type="submit" id="btnSubmit" name="btnSubmit" value="Submit" disabled>
+	<input type="submit" id="btnSubmit" name="btnSubmit" value="Please wait..." disabled>
 	<div class="cf-turnstile" data-sitekey="0x4AAAAAAACsmQqydNII05ly" data-callback="enableSubmit" data-error-callback="disableSubmit" data-timeout-callback="disableSubmit" data-expired-callback="disableSubmit"></div>
 </form>
