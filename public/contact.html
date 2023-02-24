@@ -21,6 +21,7 @@
 <meta name="description" content="Contact Sebastian Rasor">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.sebastianrasor.com/contact">
+<title>Sebastian Rasor - Contact</title>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="/openpgp.min.js"></script>
 <script>
@@ -76,70 +77,96 @@
 		}
 	}
 </script>
-<title>Sebastian Rasor - Contact</title>
 <style>
-	@font-face {
-		font-family: "Atkinson Hyperlegible";
-		src: url("/Atkinson-Hyperlegible-Regular.woff2") format('woff2');
+	:root {
+		--color: black;
+		--background-color: white;
 	}
-	@font-face {
-		font-family: "Atkinson Hyperlegible";
-		src: url("/Atkinson-Hyperlegible-Bold.woff2") format('woff2');
-		font-weight: bold;
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--color: white;
+			--background-color: black;
+		}
 	}
-	@font-face {
-		font-family: "Atkinson Hyperlegible";
-		src: url("/Atkinson-Hyperlegible-Italic.woff2") format('woff2');
-		font-style: italic;
-	}
-	@font-face {
-		font-family: "Atkinson Hyperlegible";
-		src: url("/Atkinson-Hyperlegible-BoldItalic.woff2") format('woff2');
-		font-weight: bold;
-		font-style: italic;
-	}
-	@media (prefers-color-scheme: dark){
-		body {color:#fff;background:#000}
-		a:link {color:#cdf}
-		a:hover, a:visited:hover {color:#def}
-		a:visited {color:#dcf}
+	html {
+		color: var(--color);
+		background-color: var(--background-color);
 	}
 	html, body {
+		margin: 0 auto;
 		height: 100%;
 	}
-	body{
-		margin:0 auto;
-		max-width:40em;
-		padding:0;
-		font:1.2em/1.62 "Atkinson Hyperlegible", "Arial", sans-serif;
-		display: flex;
+	body, form {
 		align-items: center;
-		justify-content: center;
-	}
-	.cf-turnstile {
 		display: flex;
+		flex-direction: column;
+		gap: 1.5em;
 		justify-content: center;
 	}
 	input, textarea {
-		width: 100%;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
+		all: unset;
 	}
-	input[type="submit"] {
-		width: auto;
-		display: block;
-		margin: 0 auto;
+	textarea {
+		overflow-wrap: break-word;
+	}
+	input, textarea {
+		border-bottom: 1px var(--color) solid;
+	}
+	input[type=submit]:disabled,
+	input[type=submit][disabled] {
+		background: var(--background-color);
+		border: 1px var(--color) solid;
+		color: gray;
+		cursor: not-allowed;
+	}
+	input[type=submit] {
+		background: var(--color);
+		color: var(--background-color);
+		cursor: pointer;
+		padding: 2px 4px;
+	}
+	.input-container {
+		display: grid;
+		justify-contant: start;
+		padding: 0;
+	}
+	.input-container * {
+		grid-area: 1 / 1 / 2 / 2;
+		width: 100%;
+	}
+	input + label, textarea + label {
+		cursor: text;
+		user-select: none;
+		color: gray;
+		transition: 0.25s;
+		transform-origin: bottom left;
+	}
+	input:focus + label,
+	input:not(:placeholder-shown) + label,
+	textarea:focus + label,
+	textarea:not(:placeholder-shown) + label {
+		color: var(--color);
+		cursor: default;
+		pointer-events: none;
+		transform: scale(75%) translate(0, 100%);
+		transition: 0.25s;
+		user-select: none;
 	}
 </style>
 <form method="POST" action="/contact" onSubmit="onSubmit(event)">
 	<noscript><p>This form requires JavaScript to function.</noscript>
-	<p><label for="name">Name:<br></label>
-	<input type="text" id="name" name="name" placeholder="Your Name" required>
-	<p><label for="email">Email address:<br></label>
-	<input type="email" id="email" name="email" placeholder="your@email.address" required>
-	<p><label for="message">Message:<br></label>
-	<textarea id="message" name="message" placeholder="Your Message" rows="4" cols="40" required></textarea>
+	<div class="input-container">
+		<input type="text" id="name" name="name" placeholder=" " size="40" required>
+		<label for="name">Your Name</label>
+	</div>
 	<div class="cf-turnstile" data-sitekey="0x4AAAAAAACsmQqydNII05ly" data-callback="enableSubmit" data-error-callback="disableSubmit" data-timeout-callback="disableSubmit" data-expired-callback="disableSubmit"></div>
-	<p><input type="submit" id="btnSubmit" name="btnSubmit" value="Submit" disabled>
+	<div class="input-container">
+		<input type="email" id="email" name="email" placeholder=" " size="40" required>
+		<label for="email">your@email.address</label>
+	</div>
+	<div class="input-container">
+		<textarea id="message" name="message" placeholder=" " rows="4" cols="40" required></textarea>
+		<label for="message">Your Message</label>
+	</div>
+	<input type="submit" id="btnSubmit" name="btnSubmit" value="Submit" disabled>
 </form>
