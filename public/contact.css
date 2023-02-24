@@ -17,22 +17,26 @@
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-Regular.woff2") format('woff2');
+	font-display: swap;
 }
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-Bold.woff2") format('woff2');
 	font-weight: bold;
+	font-display: swap;
 }
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-Italic.woff2") format('woff2');
 	font-style: italic;
+	font-display: swap;
 }
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-BoldItalic.woff2") format('woff2');
 	font-weight: bold;
 	font-style: italic;
+	font-display: swap;
 }
 :root {
 	--color: black;
