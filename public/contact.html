@@ -78,6 +78,26 @@
 	}
 </script>
 <style>
+	@font-face {
+		font-family: "Atkinson Hyperlegible";
+		src: url("/Atkinson-Hyperlegible-Regular.woff2") format('woff2');
+	}
+	@font-face {
+		font-family: "Atkinson Hyperlegible";
+		src: url("/Atkinson-Hyperlegible-Bold.woff2") format('woff2');
+		font-weight: bold;
+	}
+	@font-face {
+		font-family: "Atkinson Hyperlegible";
+		src: url("/Atkinson-Hyperlegible-Italic.woff2") format('woff2');
+		font-style: italic;
+	}
+	@font-face {
+		font-family: "Atkinson Hyperlegible";
+		src: url("/Atkinson-Hyperlegible-BoldItalic.woff2") format('woff2');
+		font-weight: bold;
+		font-style: italic;
+	}
 	:root {
 		--color: black;
 		--background-color: white;
@@ -89,8 +109,9 @@
 		}
 	}
 	html {
-		color: var(--color);
 		background-color: var(--background-color);
+		color: var(--color);
+		font:1.2em/1.62 "Atkinson Hyperlegible", "Arial", sans-serif;
 	}
 	html, body {
 		margin: 0 auto;
