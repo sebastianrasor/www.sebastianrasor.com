@@ -82,24 +82,40 @@
 		font-family: "Atkinson Hyperlegible";
 		src: url("/Atkinson-Hyperlegible-Regular.woff2") format('woff2');
 	}
-        @media (prefers-color-scheme: dark){
-                body {color:#fff;background:#000}
-                a:link {color:#cdf}
-                a:hover, a:visited:hover {color:#def}
-                a:visited {color:#dcf}
-        }
+	@font-face {
+		font-family: "Atkinson Hyperlegible";
+		src: url("/Atkinson-Hyperlegible-Bold.woff2") format('woff2');
+		font-weight: bold;
+	}
+	@font-face {
+		font-family: "Atkinson Hyperlegible";
+		src: url("/Atkinson-Hyperlegible-Italic.woff2") format('woff2');
+		font-style: italic;
+	}
+	@font-face {
+		font-family: "Atkinson Hyperlegible";
+		src: url("/Atkinson-Hyperlegible-BoldItalic.woff2") format('woff2');
+		font-weight: bold;
+		font-style: italic;
+	}
+	@media (prefers-color-scheme: dark){
+		body {color:#fff;background:#000}
+		a:link {color:#cdf}
+		a:hover, a:visited:hover {color:#def}
+		a:visited {color:#dcf}
+	}
 	html, body {
 		height: 100%;
 	}
-        body{
-                margin:0 auto;
-                max-width:40em;
-                padding:0;
-                font:1.2em/1.62 "Atkinson Hyperlegible", "Arial", sans-serif;
+	body{
+		margin:0 auto;
+		max-width:40em;
+		padding:0;
+		font:1.2em/1.62 "Atkinson Hyperlegible", "Arial", sans-serif;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-        }
+	}
 	.cf-turnstile {
 		display: flex;
 		justify-content: center;

@@ -2,6 +2,22 @@
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-Regular.woff2") format('woff2');
 }
+@font-face {
+	font-family: "Atkinson Hyperlegible";
+	src: url("/Atkinson-Hyperlegible-Bold.woff2") format('woff2');
+	font-weight: bold;
+}
+@font-face {
+	font-family: "Atkinson Hyperlegible";
+	src: url("/Atkinson-Hyperlegible-Italic.woff2") format('woff2');
+	font-style: italic;
+}
+@font-face {
+	font-family: "Atkinson Hyperlegible";
+	src: url("/Atkinson-Hyperlegible-BoldItalic.woff2") format('woff2');
+	font-weight: bold;
+	font-style: italic;
+}
 @media (prefers-color-scheme: dark){
 	body {color:#fff;background:#000}
 	a:link {color:#cdf}
