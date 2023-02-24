@@ -1,0 +1,125 @@
+<!doctype html>
+
+<!--
+   - Copyright (c) 2023 Sebastian Riley Rasor <https://www.sebastianrasor.com/contact>
+   -
+   - Permission to use, copy, modify, and distribute this software for any
+   - purpose with or without fee is hereby granted, provided that the above
+   - copyright notice and this permission notice appear in all copies.
+   -
+   - THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+   - WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+   - MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+   - ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+   - WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+   - ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+   - OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+   -->
+
+<html lang="en">
+<meta charset="utf-8">
+<meta name="description" content="Contact Sebastian Rasor">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.sebastianrasor.com/contact">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="/openpgp.min.js"></script>
+<script>
+	const publicKeyArmored = [
+		'-----BEGIN PGP PUBLIC KEY BLOCK-----',
+		'',
+		'xjMEYNEzohYJKwYBBAHaRw8BAQdAQyh7DUOy8DADNA1uozRJOt94FbpqOsQT',
+		'lLI1usc8u8/NJ3NlYkBzdGlhbnJhc29yLmNvbSA8c2ViQHN0aWFucmFzb3Iu',
+		'Y29tPsKPBBAWCgAgBQJg0TOiBgsJBwgDAgQVCAoCBBYCAQACGQECGwMCHgEA',
+		'IQkQWiL3l5tgcqMWIQStp7jJvqtuQaqgI29aIveXm2Byo0GjAQDZrZQ5IgDM',
+		'CNK8xT1fkf7ZGLYmsF+ldQMVB0bGyH2tfgEAg6r4DGjC35EN5cxrGH2fsgPQ',
+		'8R8Zs6oQ5OERvn79tgjOOARg0TOiEgorBgEEAZdVAQUBAQdA5ScMDD5562SR',
+		'/8dkKeVTidN+D9pFdM0h52nDvNzHbGcDAQgHwngEGBYIAAkFAmDRM6ICGwwA',
+		'IQkQWiL3l5tgcqMWIQStp7jJvqtuQaqgI29aIveXm2ByowxVAPoDiD2As0yn',
+		'BizyCHUQ1ZCq1bMR/XUrfu53Ly5cvIBhEwD/RoorwKn7vVqYPMk94c98P2Kv',
+		'BYo5vdAiB7SZLKqG6AA=',
+		'=QklC',
+		'-----END PGP PUBLIC KEY BLOCK-----'
+	].join('\n');
+
+	window.enableSubmit = () => {
+		document.getElementById("btnSubmit").disabled=false
+	}
+
+	window.disableSubmit = () => {
+		document.getElementById("btnSubmit").disabled=true
+	}
+	window.onbeforeunload = disableSubmit;
+
+	window.onSubmit = async (evt) => {
+		evt.preventDefault();
+		if (document.getElementById("btnSubmit").disabled) {
+			return false;
+		} else {
+			const form = evt.target;
+			form.name.readOnly = true;
+			form.email.readOnly = true;
+			form.message.readOnly = true;
+			try {
+				await openpgp.readMessage({ armoredMessage: form.message.value });
+				form.submit();
+				return true;
+			} catch(err) {
+				// noop
+			}
+			const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+			const encrypted = await openpgp.encrypt({
+				message: await openpgp.createMessage({ text: form.message.value }),
+				encryptionKeys: publicKey,
+			});
+			form.message.value = encrypted;
+			form.submit();
+		}
+	}
+</script>
+<title>Sebastian Rasor - Contact</title>
+<style>
+        @media (prefers-color-scheme: dark){
+                body {color:#fff;background:#000}
+                a:link {color:#cdf}
+                a:hover, a:visited:hover {color:#def}
+                a:visited {color:#dcf}
+        }
+	html, body {
+		height: 100%;
+	}
+        body{
+                margin:0 auto;
+                max-width:40em;
+                padding:0;
+                font:1.2em/1.62 sans-serif;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+        }
+	.cf-turnstile {
+		display: flex;
+		justify-content: center;
+	}
+	input, textarea {
+		width: 100%;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	input[type="submit"] {
+		width: auto;
+		display: block;
+		margin: 0 auto;
+	}
+</style>
+<form method="POST" action="/contact" onSubmit="onSubmit(event)">
+	<noscript><p>This form requires JavaScript to function.</noscript>
+	<p><label for="name">Name:<br></label>
+	<input type="text" id="name" name="name" placeholder="Your Name" required>
+	<p><label for="email">Email address:<br></label>
+	<input type="email" id="email" name="email" placeholder="your@email.address" required>
+	<p><label for="message">Message:<br></label>
+	<textarea id="message" name="message" placeholder="Your Message" rows="4" cols="40" required></textarea>
+	<div class="cf-turnstile" data-sitekey="0x4AAAAAAACsmQqydNII05ly" data-callback="enableSubmit" data-error-callback="disableSubmit" data-timeout-callback="disableSubmit" data-expired-callback="disableSubmit"></div>
+	<p><input type="submit" id="btnSubmit" name="btnSubmit" value="Submit" disabled>
+</form>
