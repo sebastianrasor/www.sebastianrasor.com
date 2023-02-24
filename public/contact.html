@@ -124,6 +124,9 @@
 		gap: 1.5em;
 		justify-content: center;
 	}
+	.cf-turnstile {
+		position: absolute;
+	}
 	input, textarea {
 		all: unset;
 	}
@@ -145,6 +148,7 @@
 		color: var(--background-color);
 		cursor: pointer;
 		padding: 2px 4px;
+		text-align: center;
 	}
 	.input-container {
 		display: grid;
@@ -153,6 +157,12 @@
 	}
 	.input-container * {
 		grid-area: 1 / 1 / 2 / 2;
+		width: 100%;
+	}
+	.horizontal-container {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 		width: 100%;
 	}
 	input + label, textarea + label {
@@ -176,13 +186,15 @@
 </style>
 <form method="POST" action="/contact" onSubmit="onSubmit(event)">
 	<noscript><p>This form requires JavaScript to function.</noscript>
-	<div class="input-container">
-		<input type="text" id="name" name="name" placeholder=" " size="40" autofocus required>
-		<label for="name">Your Name</label>
-	</div>
-	<div class="input-container">
-		<input type="email" id="email" name="email" placeholder=" " size="40" required>
-		<label for="email">your@email.address</label>
+	<div class="horizontal-container">
+		<div class="input-container">
+			<input type="text" id="name" name="name" placeholder=" " size="18" autofocus required>
+			<label for="name">Your Name</label>
+		</div>
+		<div class="input-container">
+			<input type="email" id="email" name="email" placeholder=" " size="18" required>
+			<label for="email">your@email.address</label>
+		</div>
 	</div>
 	<div class="input-container">
 		<textarea id="message" name="message" placeholder=" " rows="4" cols="40" required></textarea>
