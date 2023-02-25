@@ -39,6 +39,7 @@
 	font-display: swap;
 }
 :root {
+	--min-width: 29ch;
         --primary: #000;
         --secondary: #fff;
 }
@@ -65,7 +66,7 @@ a {
 }
 article {
 	margin: auto;
-	min-width: 28ch;
+	min-width: var(--min-width);
 	width: 50%;
 }
 .main {
@@ -82,7 +83,7 @@ form {
 	flex-direction: column;
 	gap: 1.5em;
 	margin: auto;
-	min-width: 28ch;
+	min-width: var(--min-width);
 	padding: 1ch;
 	width: 50%;
 }
