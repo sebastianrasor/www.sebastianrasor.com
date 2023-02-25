@@ -39,15 +39,13 @@
 	font-display: swap;
 }
 :root {
-        --primary: black;
-        --secondary: white;
-        --gray: darkgray;
+        --primary: #000;
+        --secondary: #fff;
 }
 @media (prefers-color-scheme: dark) {
         :root {
-                --primary: white;
-                --secondary: black;
-                --gray: lightgray;
+                --primary: #fff;
+                --secondary: #000;
         }
 }
 html, body {
@@ -59,27 +57,24 @@ body {
 	color: var(--primary);
 	display: flex;
 	flex-direction: column;
-	font-family: "Atkinson Hyperlegible", "Arial", sans-serif;
+	font: 12pt "Atkinson Hyperlegible", "Arial", sans-serif;
 	user-select: none;
 }
 a {
 	color: var(--primary);
 }
 article {
-	max-width: 50%;
-}
-@media only screen and (max-width: 768px) {
-	article {
-		max-width: 90%;
-	}
+	margin: auto;
+	min-width: 28ch;
+	width: 50%;
 }
 .main {
 	align-items: center;
 	display: flex;
 	flex-grow: 1;
 	justify-content: center;
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: auto;
+	padding: auto;
 }
 form {
 	align-items: center;
@@ -87,52 +82,51 @@ form {
 	flex-direction: column;
 	gap: 1.5em;
 	margin: auto;
+	min-width: 28ch;
+	padding: 1ch;
+	width: 50%;
 }
 input, textarea {
 	all: unset;
+	border-bottom: 1px var(--primary) solid;
 }
 textarea {
 	overflow-wrap: break-word;
 	border-right: 1px var(--primary) solid;
 }
-input, textarea {
-	border-bottom: 1px var(--primary) solid;
-}
 input[type=submit]:disabled,
 input[type=submit][disabled] {
-	background: var(--secondary);
-	border: 1px var(--primary) solid;
-	color: var(--gray);
-	cursor: not-allowed;
+	color: #757575;
+	cursor: default;
 }
 input[type=submit] {
-	background: var(--primary);
 	border: none;
-	color: var(--secondary);
+	color: var(--primary);
 	cursor: pointer;
 	line-height: 1em;
-	padding: 8px 10px 7px 9px;
-	text-align: center;
+	text-align: right;
+	text-decoration-line: underline;
 }
 .input-container {
 	display: grid;
-	justify-contant: start;
-	padding: 0;
+	width: 100%;
 }
 .input-container * {
-	grid-area: 1 / 1 / 2 / 2;
+	grid-column: 1;
+	grid-row: 1;
 	width: 100%;
 }
 .horizontal-container {
 	display: flex;
 	flex-direction: row;
+	gap: 1ch;
 	justify-content: space-between;
 	width: 100%;
 }
 input + label, textarea + label {
 	cursor: text;
 	user-select: none;
-	color: var(--gray);
+	color: #757575;
 	transition: 0.25s;
 	transform-origin: bottom left;
 }
@@ -152,14 +146,14 @@ textarea:not(:placeholder-shown) + label {
 }
 footer {
 	display: flex;
-	gap: 1em;
+	gap: 1ch;
 	justify-content: center;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
+	padding-bottom: 1ch;
+	padding-top: 1ch;
 	width: 100%;
 }
 footer div {
-	color: var(--gray);
+	color: #757575;
 	cursor: default;
 	text-decoration-line: underline;
 }
