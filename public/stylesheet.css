@@ -59,7 +59,7 @@ body {
 	color: var(--primary);
 	display: flex;
 	flex-direction: column;
-	font: "Atkinson Hyperlegible", "Arial", sans-serif;
+	font-family: "Atkinson Hyperlegible", "Arial", sans-serif;
 	user-select: none;
 }
 a {
