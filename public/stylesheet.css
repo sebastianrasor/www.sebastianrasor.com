@@ -81,11 +81,29 @@ form {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	gap: 1.5em;
+	gap: 1.5rem;
 	margin: auto;
 	min-width: var(--min-width);
 	padding: 1ch;
 	width: 50%;
+}
+.button {
+	background-color: var(--primary);
+	border: 1px var(--primary) solid;
+	color: var(--secondary);
+	height: 0.671em;
+	line-height: 0.796em;
+	padding: 1ch;
+	text-decoration-line: none;
+}
+.button-disabled {
+	background-color: var(--secondary);
+	border: 1px var(--primary) solid;
+	color: #757575;
+	height: 0.671em;
+	line-height: 0.796em;
+	padding: 1ch;
+	text-decoration-line: none;
 }
 input, textarea {
 	all: unset;
@@ -94,19 +112,6 @@ input, textarea {
 textarea {
 	overflow-wrap: break-word;
 	border-right: 1px var(--primary) solid;
-}
-input[type=submit]:disabled,
-input[type=submit][disabled] {
-	color: #757575;
-	cursor: default;
-}
-input[type=submit] {
-	border: none;
-	color: var(--primary);
-	cursor: pointer;
-	line-height: 1em;
-	text-align: right;
-	text-decoration-line: underline;
 }
 .input-container {
 	display: grid;
@@ -145,16 +150,11 @@ textarea:not(:placeholder-shown) + label {
 .cf-turnstile {
 	position: absolute;
 }
-footer {
+.navbar {
 	display: flex;
 	gap: 1ch;
 	justify-content: center;
 	padding-bottom: 1ch;
 	padding-top: 1ch;
 	width: 100%;
-}
-footer div {
-	color: #757575;
-	cursor: default;
-	text-decoration-line: underline;
 }
