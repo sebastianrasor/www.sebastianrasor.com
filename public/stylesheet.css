@@ -128,9 +128,8 @@ textarea {
 	width: 100%;
 }
 input + label, textarea + label {
-	cursor: text;
-	user-select: none;
 	color: #757575;
+	pointer-events: none;
 	transition: 0.25s;
 	transform-origin: bottom left;
 }
