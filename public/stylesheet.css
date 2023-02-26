@@ -123,7 +123,7 @@ textarea {
 .horizontal-container {
 	display: flex;
 	flex-direction: row;
-	gap: 1ch;
+	gap: 1.5rem;
 	justify-content: space-between;
 	width: 100%;
 }
@@ -141,7 +141,7 @@ textarea:not(:placeholder-shown) + label {
 	color: var(--primary);
 	cursor: default;
 	pointer-events: none;
-	transform: scale(75%) translate(0, 100%);
+	transform: scale(75%) translate(0, calc(100% + 3px));
 	transition: 0.25s;
 	user-select: none;
 }
