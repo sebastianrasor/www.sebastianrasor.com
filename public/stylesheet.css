@@ -91,6 +91,7 @@ form {
 	background-color: var(--primary);
 	border: 1px var(--primary) solid;
 	color: var(--secondary);
+	cursor: pointer;
 	height: 0.671em;
 	line-height: 0.796em;
 	padding: 1ch;
@@ -100,10 +101,7 @@ form {
 	background-color: var(--secondary);
 	border: 1px var(--primary) solid;
 	color: #757575;
-	height: 0.671em;
-	line-height: 0.796em;
-	padding: 1ch;
-	text-decoration-line: none;
+	cursor: default;
 }
 input, textarea {
 	all: unset;
