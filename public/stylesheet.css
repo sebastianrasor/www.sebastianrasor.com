@@ -68,6 +68,7 @@ a {
 article {
 	margin: auto;
 	min-width: var(--min-width);
+	padding: 1ch;
 	width: 50%;
 }
 main {
