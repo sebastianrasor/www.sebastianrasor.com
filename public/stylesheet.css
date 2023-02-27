@@ -40,14 +40,14 @@
 }
 :root {
 	--min-width: 29ch;
-        --primary: #000;
-        --secondary: #fff;
+	--primary: #000;
+	--secondary: #fff;
 }
 @media (prefers-color-scheme: dark) {
-        :root {
-                --primary: #fff;
-                --secondary: #000;
-        }
+	:root {
+		--primary: #fff;
+		--secondary: #000;
+	}
 }
 html, body {
 	height: 100%;
