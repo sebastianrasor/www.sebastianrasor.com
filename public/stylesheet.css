@@ -17,26 +17,26 @@
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-Regular.woff2") format('woff2');
-	font-display: swap;
+	font-display: optional;
 }
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-Bold.woff2") format('woff2');
 	font-weight: bold;
-	font-display: swap;
+	font-display: optional;
 }
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-Italic.woff2") format('woff2');
 	font-style: italic;
-	font-display: swap;
+	font-display: optional;
 }
 @font-face {
 	font-family: "Atkinson Hyperlegible";
 	src: url("/Atkinson-Hyperlegible-BoldItalic.woff2") format('woff2');
 	font-weight: bold;
 	font-style: italic;
-	font-display: swap;
+	font-display: optional;
 }
 :root {
 	--min-width: 29ch;
@@ -69,7 +69,7 @@ article {
 	min-width: var(--min-width);
 	width: 50%;
 }
-.main {
+main {
 	align-items: center;
 	display: flex;
 	flex-grow: 1;
@@ -147,7 +147,7 @@ textarea:not(:placeholder-shown) + label {
 .cf-turnstile {
 	position: absolute;
 }
-.navbar {
+nav {
 	display: flex;
 	gap: 1ch;
 	justify-content: center;

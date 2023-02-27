@@ -83,7 +83,7 @@
 		}
 	}
 </script>
-<div class="main">
+<main role="main">
 	<form method="POST" action="/contact" onSubmit="onSubmit(event)">
 		<noscript>This form requires JavaScript to function.</noscript>
 		<div class="horizontal-container">
@@ -103,8 +103,8 @@
 		<input class="button button-disabled" type="submit" id="btnSubmit" name="btnSubmit" value="Please wait..." disabled>
 		<div class="cf-turnstile" data-sitekey="0x4AAAAAAACsmQqydNII05ly" data-callback="enableSubmit" data-error-callback="disableSubmit" data-timeout-callback="disableSubmit" data-expired-callback="disableSubmit"></div>
 	</form>
-</div>
-<div class="navbar">
+</main>
+<nav role="navigation">
 	<a class="button" href="/">Home</a>
 	<div class="button button-disabled">Contact</div>
-</div>
+</nav>
