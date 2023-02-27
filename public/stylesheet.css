@@ -14,6 +14,10 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+@font-face {
+	font-family: "Atkinson Hyperlegible";
+	font-display: optional;
+}
 :root {
 	--min-width: 29ch;
         --primary: #000;
