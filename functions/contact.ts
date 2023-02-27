@@ -75,8 +75,8 @@ export const onRequestPost: PagesFunction = async (context) => {
 		const response = await fetch(send_request);
 
 		if (response.ok) {
-			return Response.redirect('https://www.sebastianrasor.com/success', 303)
+			return Response.redirect('https://www.sebastianrasor.com/contact/success', 303)
 		}
 	}
-	return Response.redirect('https://www.sebastianrasor.com/failure', 303)
+	return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303)
 }
