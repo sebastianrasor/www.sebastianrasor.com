@@ -55,7 +55,11 @@
 		document.getElementById("btnSubmit").value="Please wait...";
 		document.getElementById("btnSubmit").classList.add("button-disabled");
 	}
-	window.onbeforeunload = disableSubmit;
+
+	window.onbeforeunload = () => {
+		disableSubmit();
+		document.getElementById("message").value='';
+	}
 
 	window.onSubmit = async (evt) => {
 		evt.preventDefault();
@@ -84,7 +88,7 @@
 	}
 </script>
 <main role="main">
-	<form method="POST" action="/contact" onSubmit="onSubmit(event)">
+	<form id="contact-form" method="POST" action="/contact" onSubmit="onSubmit(event)">
 		<noscript>This form requires JavaScript to function.</noscript>
 		<div class="horizontal-container">
 			<div class="input-container">
@@ -97,7 +101,7 @@
 			</div>
 		</div>
 		<div class="input-container">
-			<textarea id="message" name="message" placeholder=" " rows="4" required></textarea>
+			<textarea id="message" name="message" placeholder=" " rows="4" autocomplete="false" required></textarea>
 			<label for="message">Your Message</label>
 		</div>
 		<input class="button button-disabled" type="submit" id="btnSubmit" name="btnSubmit" value="Please wait..." disabled>
