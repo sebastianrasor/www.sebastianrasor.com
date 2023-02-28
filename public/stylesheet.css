@@ -109,13 +109,25 @@ input, textarea {
 	all: unset;
 	border-bottom: 1px var(--primary) solid;
 }
+input:read-only, textarea:read-only {
+	pointer-events: none;
+}
 textarea {
 	overflow-wrap: break-word;
 	border-right: 1px var(--primary) solid;
 }
-textarea:readonly {
+textarea:read-only {
 	overflow: hidden;
 	overflow-wrap: unset;
+}
+textarea:read-only + label {
+	text-transform: lowercase;
+}
+textarea:read-only + label::first-letter {
+	text-transform: uppercase;
+}
+textarea:read-only + label::after {
+	content: " is being encrypted prior to submission.";
 }
 .input-container {
 	display: grid;
@@ -145,10 +157,9 @@ textarea:focus + label,
 textarea:not(:placeholder-shown) + label {
 	color: var(--primary);
 	cursor: default;
-	pointer-events: none;
-	transform: scale(75%) translate(0, calc(100% + 3px));
+	transform: scale(75%) translate(0, 100%);
 	transition: 0.25s;
-	user-select: none;
+	width: calc(100% + (100% / 3));
 }
 .cf-turnstile {
 	display: none;
