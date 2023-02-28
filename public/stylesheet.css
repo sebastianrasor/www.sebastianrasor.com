@@ -109,7 +109,7 @@ input, textarea {
 	all: unset;
 	border-bottom: 1px var(--primary) solid;
 }
-input:read-only, textarea:read-only {
+input:not(.button):read-only, textarea:read-only {
 	pointer-events: none;
 }
 textarea {
