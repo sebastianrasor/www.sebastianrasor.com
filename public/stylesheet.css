@@ -113,6 +113,10 @@ textarea {
 	overflow-wrap: break-word;
 	border-right: 1px var(--primary) solid;
 }
+textarea:readonly {
+	overflow: hidden;
+	overflow-wrap: unset;
+}
 .input-container {
 	display: grid;
 	width: 100%;
@@ -147,6 +151,7 @@ textarea:not(:placeholder-shown) + label {
 	user-select: none;
 }
 .cf-turnstile {
+	display: none;
 	position: absolute;
 }
 nav {
