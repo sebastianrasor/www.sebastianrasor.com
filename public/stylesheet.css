@@ -117,6 +117,7 @@ textarea {
 	border-right: 1px var(--primary) solid;
 }
 textarea:read-only {
+	color: transparent;
 	overflow: hidden;
 	overflow-wrap: unset;
 }
