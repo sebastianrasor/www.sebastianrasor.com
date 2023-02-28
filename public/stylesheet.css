@@ -94,6 +94,7 @@ form {
 	border: 1px var(--primary) solid;
 	color: var(--secondary);
 	cursor: pointer;
+	font-weight: bold;
 	height: 0.671em;
 	line-height: 0.796em;
 	padding: 1ch;
