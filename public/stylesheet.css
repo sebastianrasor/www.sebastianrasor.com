@@ -77,7 +77,9 @@ main {
 	flex-grow: 1;
 	justify-content: center;
 	overflow: auto;
-	padding: auto;
+}
+main > *:last-child {
+	padding-bottom: calc(1em + 4ch);
 }
 form {
 	align-items: center;
@@ -168,10 +170,11 @@ textarea:not(:placeholder-shown) + label {
 	position: absolute;
 }
 nav {
+	bottom: 1ch;
 	display: flex;
 	gap: 1ch;
 	justify-content: center;
-	padding-bottom: 1ch;
-	padding-top: 1ch;
-	width: 100%;
+	left: 50%;
+	position: fixed;
+	transform: translate(-50%);
 }
