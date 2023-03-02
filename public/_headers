@@ -28,3 +28,5 @@
 	Link: </stylesheet.css>; rel="preload"; as="style"
 	Link: </fonts/Atkinson-Hyperlegible-Regular-102a.woff2>; rel="preload"; as="font"; crossorigin="anonymous"
 	Link: </fonts/Atkinson-Hyperlegible-Bold-102a.woff2>; rel="preload"; as="font"; crossorigin="anonymous"
+https://:project.pages.dev/*
+	X-Robots-Tag: noindex
