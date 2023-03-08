@@ -24,16 +24,16 @@ export const onRequestPost: PagesFunction = async (context) => {
 	formData.append('response', token);
 	formData.append('remoteip', ip);
 
-	const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-	const result = await fetch(url, {
+	const turnstile_response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
 		body: formData,
 		method: 'POST',
 	});
 
-	const turnstile_response = await result.json();
-	if (!turnstile_response.success) {
+	if (!turnstile_response.ok) {
 		console.log("turnstile API fail");
-		console.log(result);
+		console.log(JSON.stringify(turnstile_response.body));
+		console.log(turnstile_response.status);
+		console.log(turnstile_response.statusText);
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
@@ -79,12 +79,11 @@ export const onRequestPost: PagesFunction = async (context) => {
 
 	const mailchannels_response = await fetch(send_request);
 
-	if (!mailchannels_response.success) {
+	if (!mailchannels_response.ok) {
 		console.log("mailchannels API fail");
 		console.log(JSON.stringify(mailchannels_response.body));
 		console.log(mailchannels_response.status);
 		console.log(mailchannels_response.statusText);
-		console.log(mailchannels_response.type);
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
