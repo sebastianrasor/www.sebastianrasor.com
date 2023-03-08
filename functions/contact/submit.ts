@@ -30,53 +30,60 @@ export const onRequestPost: PagesFunction = async (context) => {
 		method: 'POST',
 	});
 
-	const outcome = await result.json();
-	if (outcome.success) {
-		let send_request = new Request('https://api.mailchannels.net/tx/v1/send', {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-			},
-			body: JSON.stringify({
-				personalizations: [
-					{
-						to: [
-							{
-								name: 'Sebastian Rasor',
-								email: '***REMOVED***',
-							},
-						],
-						dkim_domain: 'sebastianrasor.com',
-						dkim_selector: 'mailchannels',
-						dkim_private_key: context.env.DKIM_PRIVATE_KEY,
-					},
-				],
-				from: {
-					name: body.get('name'),
-					email: 'noreply@sebastianrasor.com',
-				},
-				reply_to: {
-					name: body.get('name'),
-					email: body.get('email'),
-				},
-				headers: {
-					'CF-Connecting-IP': ip,
-				},
-				subject: 'Contact Form Submission',
-				content: [
-					{
-						type: 'text/plain',
-						value: body.get('message'),
-					},
-				],
-			}),
-		});
-
-		const response = await fetch(send_request);
-
-		if (response.ok) {
-			return Response.redirect('https://www.sebastianrasor.com/contact/success', 303)
-		}
+	const turnstile_response = await result.json();
+	if (!turnstile_response.success) {
+		console.log("turnstile API fail");
+		console.log(result);
+		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
-	return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303)
+
+	let send_request = new Request('https://api.mailchannels.net/tx/v1/send', {
+		method: 'POST',
+		headers: {
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify({
+			personalizations: [
+				{
+					to: [
+						{
+							name: 'Sebastian Rasor',
+							email: '***REMOVED***',
+						},
+					],
+					dkim_domain: 'sebastianrasor.com',
+					dkim_selector: 'mailchannels',
+					dkim_private_key: context.env.DKIM_PRIVATE_KEY,
+				},
+			],
+			from: {
+				name: body.get('name'),
+				email: 'noreply@sebastianrasor.com',
+			},
+			reply_to: {
+				name: body.get('name'),
+				email: body.get('email'),
+			},
+			headers: {
+				'CF-Connecting-IP': ip,
+			},
+			subject: 'Contact Form Submission',
+			content: [
+				{
+					type: 'text/plain',
+					value: body.get('message'),
+				},
+			],
+		}),
+	});
+
+	const mailchannels_response = await fetch(send_request);
+
+	if (!mailchannels_response.success) {
+		console.log("mailchannels API fail");
+		console.log(mailchannels_response);
+		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
+	}
+
+	return Response.redirect('https://www.sebastianrasor.com/contact/success', 303)
 }
