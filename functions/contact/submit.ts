@@ -81,7 +81,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 
 	if (!mailchannels_response.success) {
 		console.log("mailchannels API fail");
-		console.log(mailchannels_response.body);
+		console.log(JSON.stringify(mailchannels_response.body));
 		console.log(mailchannels_response.status);
 		console.log(mailchannels_response.statusText);
 		console.log(mailchannels_response.type);
