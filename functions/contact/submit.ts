@@ -33,7 +33,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 	const turnstile_response = await result.json();
 	if (!turnstile_response.success) {
 		console.log("turnstile API fail");
-		console.log(JSON.stringify(result));
+		console.log(result);
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
@@ -81,7 +81,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 
 	if (!mailchannels_response.success) {
 		console.log("mailchannels API fail");
-		console.log(JSON.stringify(mailchannels_response));
+		console.log(mailchannels_response);
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
