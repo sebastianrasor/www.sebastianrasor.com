@@ -29,7 +29,9 @@ export const onRequestPost: PagesFunction = async (context) => {
 		method: 'POST',
 	});
 
-	if (!turnstile_response.ok) {
+	const turnstile_outcome = await turnstile_response.json();
+
+	if (!turnstile_outcome.success) {
 		console.log("turnstile API fail");
 		console.log(JSON.stringify(turnstile_response.body));
 		console.log(turnstile_response.status);
