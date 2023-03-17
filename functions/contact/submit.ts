@@ -50,7 +50,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 					to: [
 						{
 							name: 'Sebastian Rasor',
-							email: '***REMOVED***',
+							email: context.env.EMAIL,
 						},
 					],
 					dkim_domain: 'sebastianrasor.com',
