@@ -14,30 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-@font-face {
-	font-display: optional;
-	font-family: "Atkinson Hyperlegible";
-	src: url("/fonts/Atkinson-Hyperlegible-Regular-102a.woff2") format('woff2');
-}
-@font-face {
-	font-display: optional;
-	font-family: "Atkinson Hyperlegible";
-	font-weight: bold;
-	src: url("/fonts/Atkinson-Hyperlegible-Bold-102a.woff2") format('woff2');
-}
-@font-face {
-	font-display: optional;
-	font-family: "Atkinson Hyperlegible";
-	font-style: italic;
-	src: url("/fonts/Atkinson-Hyperlegible-Italic-102a.woff2") format('woff2');
-}
-@font-face {
-	font-display: optional;
-	font-family: "Atkinson Hyperlegible";
-	font-style: italic;
-	font-weight: bold;
-	src: url("/fonts/Atkinson-Hyperlegible-BoldItalic-102a.woff2") format('woff2');
-}
 :root {
 	--min-width: calc(28ch + 1.5rem);
 	--primary: #000;
@@ -58,7 +34,6 @@ body {
 	color: var(--primary);
 	display: flex;
 	flex-direction: column;
-	font-family: "Atkinson Hyperlegible";
 	font-size: 12pt;
 	user-select: none;
 }
