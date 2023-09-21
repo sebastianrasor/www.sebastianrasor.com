@@ -34,6 +34,7 @@ body {
 	color: var(--primary);
 	display: flex;
 	flex-direction: column;
+	font-family: "Atkinson Hyperlegible", sans-serif;
 	font-size: 12pt;
 	user-select: none;
 }
