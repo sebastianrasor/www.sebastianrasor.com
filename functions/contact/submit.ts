@@ -39,6 +39,20 @@ export const onRequestPost: PagesFunction = async (context) => {
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
+	const checkemail_response = await fetch('https://checkemail.sebastianrasor.com/%s' % body.get('email'), {
+		headers: {
+			'Authorization': 'Bearer %s' % context.env.CHECKEMAIL_KEY
+		}
+	})
+
+	if (!checkemail_response.success || checkemail_response.body != 'True') {
+		console.log("checkemail API fail");
+		console.log(JSON.stringify(checkemail_response.body));
+		console.log(checkemail_response.status);
+		console.log(checkemail_response.statusText);
+		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
+	}
+
 	let send_request = new Request('https://api.mailchannels.net/tx/v1/send', {
 		method: 'POST',
 		headers: {
