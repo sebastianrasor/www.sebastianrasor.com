@@ -39,9 +39,9 @@ export const onRequestPost: PagesFunction = async (context) => {
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
-	const checkemail_response = await fetch(f'https://checkemail.sebastianrasor.com/{body.get("email")}', {
+	const checkemail_response = await fetch(`https://checkemail.sebastianrasor.com/${body.get('email')}`, {
 		headers: {
-			'Authorization': f'Bearer {context.env.CHECKEMAIL_KEY}'
+			'Authorization': `Bearer ${context.env.CHECKEMAIL_KEY}`
 		}
 	})
 
