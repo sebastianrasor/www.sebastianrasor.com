@@ -15,7 +15,7 @@
  */
 
 :root {
-	--min-width: min(calc(100vw - 3rem), 20ch);
+	--min-width: min(calc(100vw - 3rem), calc(32ch + 1.5rem));
 	--primary: #000;
 	--secondary: #fff;
 }
