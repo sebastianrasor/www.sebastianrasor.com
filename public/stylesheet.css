@@ -15,7 +15,7 @@
  */
 
 :root {
-	--min-width: calc(28ch + 1.5rem);
+	--min-width: calc(16ch + 1.5rem);
 	--primary: #000;
 	--secondary: #fff;
 }
@@ -35,7 +35,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	font-family: "Atkinson Hyperlegible", sans-serif;
-	font-size: calc(15px + 0.390625vw);
+	font-size: calc(12pt + 0.5vw);
 	user-select: none;
 }
 a {
@@ -121,9 +121,13 @@ textarea:read-only + label::after {
 .horizontal-container {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	gap: 1.5rem;
 	justify-content: space-between;
 	width: 100%;
+}
+.horizontal-container .input-container {
+	flex: 16ch;
 }
 input + label, textarea + label {
 	color: #757575;
