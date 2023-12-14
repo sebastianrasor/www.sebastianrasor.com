@@ -47,13 +47,13 @@ export const onRequestPost: PagesFunction = async (context) => {
 
 	if (!checkemail_response.ok) {
 		console.log("checkemail API fail");
-		console.log(checkemail_response.body.text());
+		console.log(checkemail_response.text());
 		console.log(checkemail_response.status);
 		console.log(checkemail_response.statusText);
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
-	if (checkemail_response.body.text() != 'True') {
+	if (checkemail_response.text() != 'True') {
 		return Response.redirect('https://www.sebastianrasor.com/contact/bad-email', 303);
 	}
 
