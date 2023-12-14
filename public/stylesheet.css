@@ -35,7 +35,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	font-family: "Atkinson Hyperlegible", sans-serif;
-	font-size: 2vmin;
+	font-size: 3.5vmin;
 	user-select: none;
 }
 a {
