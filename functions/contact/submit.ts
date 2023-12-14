@@ -45,7 +45,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 		}
 	})
 
-	print(checkemail_response.body)
+	console.log(checkemail_response.body)
 
 	if (!checkemail_response.success) {
 		console.log("checkemail API fail");
