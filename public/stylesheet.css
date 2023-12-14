@@ -150,6 +150,8 @@ textarea:not(:placeholder-shown) + label {
 	position: absolute;
 }
 nav {
+	background: var(--secondary);
+	box-shadow: 0 0 0.5ch 1ch var(--secondary);
 	bottom: 1ch;
 	display: flex;
 	gap: 1ch;
