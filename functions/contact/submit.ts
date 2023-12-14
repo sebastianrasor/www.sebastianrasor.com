@@ -45,14 +45,16 @@ export const onRequestPost: PagesFunction = async (context) => {
 		}
 	})
 
-	console.log(checkemail_response.body)
-
-	if (!checkemail_response.success) {
+	if (!checkemail_response.ok) {
 		console.log("checkemail API fail");
-		console.log(JSON.stringify(checkemail_response.body));
+		console.log(checkemail_response.body.text());
 		console.log(checkemail_response.status);
 		console.log(checkemail_response.statusText);
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
+	}
+
+	if (checkemail_response.body.text() != 'True') {
+		return Response.redirect('https://www.sebastianrasor.com/contact/bad-email', 303);
 	}
 
 	let send_request = new Request('https://api.mailchannels.net/tx/v1/send', {
