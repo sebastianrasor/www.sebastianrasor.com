@@ -53,6 +53,8 @@ export const onRequestPost: PagesFunction = async (context) => {
 		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
 	}
 
+	console.log(checkemail_response.text())
+
 	if (checkemail_response.text() != 'True') {
 		return Response.redirect('https://www.sebastianrasor.com/contact/bad-email', 303);
 	}
