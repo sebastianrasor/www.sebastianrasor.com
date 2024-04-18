@@ -3,12 +3,13 @@ Hash: SHA512
 
 Contact: https://www.sebastianrasor.com/contact
 Expires: 2025-04-18T23:00:00.000Z
+Encryption: https://www.sebastianrasor.com/F20DE4BA5B36D4E9.asc
 Preferred-Languages: en
 Canonical: https://www.sebastianrasor.com/.well-known/security.txt
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQQIeO0WL4spXyWsGXvyDeS6WzbU6QUCZiGkJgAKCRDyDeS6WzbU
-6VebAQDQpCzNFPoCK7dPONCqQvJ/pqOe4enk9XWdLT8jAuwktAD+OMnK2CH9icKy
-G2pxjXH+p/z8s7GaRD9TPRj0Fe6/RAM=
-=cibm
+iHUEARYKAB0WIQQIeO0WL4spXyWsGXvyDeS6WzbU6QUCZiGlZwAKCRDyDeS6WzbU
+6QIfAQCyu9jpnt6GFrVoaT20Wi+W2UZBzrw8vIyWfMqI2B2vkAD/Rp3aTsztZ+cL
+8a9biRJgpAUmEeR+1tNJDp+Nb7yhvQE=
+=AmaY
 -----END PGP SIGNATURE-----
