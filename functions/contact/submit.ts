@@ -64,6 +64,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 		return Response.redirect('https://www.sebastianrasor.com/contact/bad-email', 303);
 	}
 
+	let boundary = crypto.randomUUID();
 	let send_request = new Request('https://api.mailchannels.net/tx/v1/send', {
 		method: 'POST',
 		headers: {
@@ -97,8 +98,20 @@ export const onRequestPost: PagesFunction = async (context) => {
 			subject: 'Contact Form Submission',
 			content: [
 				{
-					type: 'text/plain',
-					value: body.get('message'),
+					type: `multipart/encrypted; protocol="application/pgp-encrypted"; boundary="${boundary}"; charset=utf-8`,
+					value: [
+						`--${boundary}`,
+						'Content-Type: application/pgp-encrypted',
+						'',
+						'Version: 1',
+						'',
+						`--${boundary}`,
+						'Content-Type: application/octet-stream',
+						'',
+						body.get('message'),
+						'',
+						`--${boundary}--`
+					].join('\n')
 				},
 			],
 		}),
