@@ -1,15 +1,18 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
+# You do NOT need to manually encrypt a message sent through my contact form. It
+# will encrypt the message client-side using OpenPGP.js before sending it to the
+# server.
 Contact: https://www.sebastianrasor.com/contact
-Expires: 2025-04-18T23:00:00.000Z
+Expires: 2025-04-19T05:00:00.000Z
 Encryption: https://www.sebastianrasor.com/F20DE4BA5B36D4E9.asc
 Preferred-Languages: en
 Canonical: https://www.sebastianrasor.com/.well-known/security.txt
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQQIeO0WL4spXyWsGXvyDeS6WzbU6QUCZiGlZwAKCRDyDeS6WzbU
-6QIfAQCyu9jpnt6GFrVoaT20Wi+W2UZBzrw8vIyWfMqI2B2vkAD/Rp3aTsztZ+cL
-8a9biRJgpAUmEeR+1tNJDp+Nb7yhvQE=
-=AmaY
+iHUEARYKAB0WIQQIeO0WL4spXyWsGXvyDeS6WzbU6QUCZiH2wQAKCRDyDeS6WzbU
+6X71AP4r0lrTP5gwqpB1qML0p6x8NGME2BfZoGYOloBmojHysgD/X7Fi0zAGBZK1
+kVXBKINfO/zVtDhGnbWej2Mewet1PQs=
+=/IvC
 -----END PGP SIGNATURE-----
