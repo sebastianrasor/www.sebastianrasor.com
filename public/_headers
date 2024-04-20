@@ -20,6 +20,8 @@
 	Link: </stylesheet.css>; rel="preload"; as="style"
 /contact
 	Link: </stylesheet.css>; rel="preload"; as="style"
+/contact/bad-email
+	Link: </stylesheet.css>; rel="preload"; as="style"
 /contact/failure
 	Link: </stylesheet.css>; rel="preload"; as="style"
 /contact/success
