@@ -66,6 +66,18 @@
 		document.getElementById("message").value='';
 	}
 
+	window.addEventListener("pageshow", (evt) => {
+		if (evt.persisted) {
+			disableSubmit();
+			turnstile.reset();
+
+			const form = document.getElementById("contact-form");
+			form.name.readOnly = false;
+			form.email.readOnly = false;
+			form.message.readOnly = false;
+		};
+	});
+
 	window.onSubmit = async (evt) => {
 		evt.preventDefault();
 		if (document.getElementById("btnSubmit").disabled) {
