@@ -41,6 +41,7 @@ body {
 	font-family: "Atkinson Hyperlegible", sans-serif;
 	font-size: calc(14pt + 0.5vw);
 	user-select: none;
+	-webkit-user-select: none; /* Safari */
 }
 a {
 	color: var(--primary);
