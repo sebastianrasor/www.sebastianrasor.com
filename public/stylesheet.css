@@ -137,7 +137,8 @@ textarea:read-only + label::after {
 input + label, textarea + label {
 	color: #757575;
 	pointer-events: none;
-	transition: 0.25s;
+	transition: color 0.25s;
+	transition: transform 0.25s;
 	transform-origin: bottom left;
 }
 input:focus + label,
@@ -147,7 +148,8 @@ textarea:not(:read-only, :placeholder-shown) + label {
 	color: var(--primary);
 	cursor: default;
 	transform: scale(75%) translate(0, 100%);
-	transition: 0.25s;
+	transition: color 0.25s;
+	transition: transform 0.25s;
 	width: calc(100% + (100% / 3));
 }
 .cf-turnstile {
