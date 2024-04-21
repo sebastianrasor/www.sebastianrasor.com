@@ -85,6 +85,9 @@
 			form.name.readOnly = true;
 			form.email.readOnly = true;
 			form.message.readOnly = true;
+			form.name.blur();
+			form.email.blur();
+			form.message.blur();
 			const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
 			const encrypted = await openpgp.encrypt({
 				message: await openpgp.createMessage({ text: "Content-Type: text/plain;charset=utf-8\n\n" + form.message.value }),
