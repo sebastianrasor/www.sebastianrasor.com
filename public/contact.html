@@ -61,11 +61,6 @@
 		document.getElementById("btnSubmit").classList.add("button-disabled");
 	}
 
-	window.onbeforeunload = () => {
-		disableSubmit();
-		document.getElementById("message").value='';
-	}
-
 	window.addEventListener("pageshow", (evt) => {
 		if (evt.persisted) {
 			disableSubmit();
@@ -83,6 +78,7 @@
 		if (document.getElementById("btnSubmit").disabled) {
 			return false;
 		} else {
+			disableSubmit();
 			const form = evt.target;
 			form.name.readOnly = true;
 			form.email.readOnly = true;

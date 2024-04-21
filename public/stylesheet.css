@@ -143,7 +143,7 @@ input + label, textarea + label {
 input:focus + label,
 input:not(:placeholder-shown) + label,
 textarea:focus + label,
-textarea:not(:placeholder-shown) + label {
+textarea:not(:read-only, :placeholder-shown) + label {
 	color: var(--primary);
 	cursor: default;
 	transform: scale(75%) translate(0, 100%);
