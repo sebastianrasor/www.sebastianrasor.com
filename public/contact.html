@@ -61,6 +61,7 @@
 		document.getElementById("btnSubmit").classList.add("button-disabled");
 	}
 
+	let unencryptedMessage = '';
 	window.addEventListener("pageshow", (evt) => {
 		if (evt.persisted) {
 			disableSubmit();
@@ -70,7 +71,7 @@
 			form.name.readOnly = false;
 			form.email.readOnly = false;
 			form.message.readOnly = false;
-			form.message.value = '';
+			form.message.value = unencryptedMessage;
 		};
 	});
 
@@ -89,6 +90,7 @@
 				message: await openpgp.createMessage({ text: "Content-Type: text/plain;charset=utf-8\n\n" + form.message.value }),
 				encryptionKeys: publicKey,
 			});
+			unencryptedMessage = form.message.value;
 			form.message.value = encrypted;
 			form.submit();
 		}
