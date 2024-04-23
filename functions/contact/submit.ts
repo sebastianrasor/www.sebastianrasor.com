@@ -19,49 +19,25 @@
  * <https://www.gnu.org/licenses/>.
  */
 
+import * as urls from '../../src/urls';
+import {validateTurnstile} from '../../src/turnstile_validation';
+import {validateEmailAddress} from '../../src/email_address_validation';
+
 export const onRequestPost: PagesFunction = async (context) => {
 	const body = await context.request.formData();
-	const token = body.get('cf-turnstile-response');
-	const ip = context.request.headers.get('CF-Connecting-IP');
 
-	let formData = new FormData();
-	formData.append('secret', context.env.TURNSTILE_SECRET_KEY);
-	formData.append('response', token);
-	formData.append('remoteip', ip);
+	const failureRedirect = Response.redirect(urls.FAILURE_URL, 303);
+	const badEmailRedirect = Response.redirect(urls.BAD_EMAIL_URL, 303);
 
-	const turnstile_response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-		body: formData,
-		method: 'POST',
-	});
+	if (!validateTurnstile(context, body)) return failureRedirect;
 
-	const turnstile_outcome = await turnstile_response.json();
+	try {
+		if (!validateEmailAddress(context, body)) return badEmailRedirect;
+	} catch (e: unknown) {
+		// this shouldn't happen
+		if (e.message === 'Unauthorized') return failureRedirect;
 
-	if (!turnstile_outcome.success) {
-		console.log("turnstile API fail");
-		console.log(JSON.stringify(turnstile_response.body));
-		console.log(turnstile_response.status);
-		console.log(turnstile_response.statusText);
-		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
-	}
-
-	const checkemail_response = await fetch(`https://checkemail.sebastianrasor.com/${body.get('email')}`, {
-		headers: {
-			'Authorization': `Bearer ${context.env.CHECKEMAIL_KEY}`
-		}
-	})
-
-	const checkemail_response_text = await checkemail_response.text()
-
-	if (!checkemail_response.ok) {
-		console.log("checkemail API fail");
-		console.log(checkemail_response_text);
-		console.log(checkemail_response.status);
-		console.log(checkemail_response.statusText);
-		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
-	}
-
-	if (checkemail_response_text != 'True') {
-		return Response.redirect('https://www.sebastianrasor.com/contact/bad-email', 303);
+		throw e;
 	}
 
 	let boundary = crypto.randomUUID();
@@ -93,7 +69,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 				email: body.get('email'),
 			},
 			headers: {
-				'CF-Connecting-IP': ip,
+				'CF-Connecting-IP': context.request.headers.get('CF-Connecting-IP'),
 			},
 			subject: 'Contact Form Submission',
 			content: [
