@@ -21,3 +21,4 @@
 
 export const BAD_EMAIL_URL = 'https://www.sebastianrasor.com/contact/bad-email';
 export const FAILURE_URL = 'https://www.sebastianrasor.com/contact/failure';
+export const SUCCESS_URL = 'https://www.sebastianrasor.com/contact/success';

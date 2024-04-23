@@ -20,88 +20,25 @@
  */
 
 import * as urls from '../../src/urls';
-import {validateTurnstile} from '../../src/turnstile_validation';
+import {sendEmail} from '../../src/mailchannels_send';
 import {validateEmailAddress} from '../../src/email_address_validation';
+import {validateTurnstile} from '../../src/turnstile_validation';
 
 export const onRequestPost: PagesFunction = async (context) => {
 	const body = await context.request.formData();
 
-	const failureRedirect = Response.redirect(urls.FAILURE_URL, 303);
 	const badEmailRedirect = Response.redirect(urls.BAD_EMAIL_URL, 303);
-
-	if (!validateTurnstile(context, body)) return failureRedirect;
+	const failureRedirect = Response.redirect(urls.FAILURE_URL, 303);
+	const successRedirect = Response.redirect(urls.SUCCESS_URL, 303);
 
 	try {
-		if (!validateEmailAddress(context, body)) return badEmailRedirect;
+		if (!await validateTurnstile(context, body)) return failureRedirect;
+		if (!await validateEmailAddress(context, body)) return badEmailRedirect;
+		if (!await sendEmail(context, body)) return failureRedirect;
 	} catch (e: unknown) {
-		// this shouldn't happen
-		if (e.message === 'Unauthorized') return failureRedirect;
-
-		throw e;
+		console.error(e);
+		return failureRedirect;
 	}
 
-	let boundary = crypto.randomUUID();
-	let send_request = new Request('https://api.mailchannels.net/tx/v1/send', {
-		method: 'POST',
-		headers: {
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify({
-			personalizations: [
-				{
-					to: [
-						{
-							name: 'Sebastian Rasor',
-							email: context.env.EMAIL,
-						},
-					],
-					dkim_domain: 'sebastianrasor.com',
-					dkim_selector: 'mailchannels',
-					dkim_private_key: context.env.DKIM_PRIVATE_KEY,
-				},
-			],
-			from: {
-				name: body.get('name'),
-				email: 'noreply@sebastianrasor.com',
-			},
-			reply_to: {
-				name: body.get('name'),
-				email: body.get('email'),
-			},
-			headers: {
-				'CF-Connecting-IP': context.request.headers.get('CF-Connecting-IP'),
-			},
-			subject: 'Contact Form Submission',
-			content: [
-				{
-					type: `multipart/encrypted; protocol="application/pgp-encrypted"; boundary="${boundary}"; charset=utf-8`,
-					value: [
-						`--${boundary}`,
-						'Content-Type: application/pgp-encrypted',
-						'',
-						'Version: 1',
-						'',
-						`--${boundary}`,
-						'Content-Type: application/octet-stream',
-						'',
-						body.get('message'),
-						'',
-						`--${boundary}--`
-					].join('\n')
-				},
-			],
-		}),
-	});
-
-	const mailchannels_response = await fetch(send_request);
-
-	if (!mailchannels_response.ok) {
-		console.log("mailchannels API fail");
-		console.log(JSON.stringify(mailchannels_response.body));
-		console.log(mailchannels_response.status);
-		console.log(mailchannels_response.statusText);
-		return Response.redirect('https://www.sebastianrasor.com/contact/failure', 303);
-	}
-
-	return Response.redirect('https://www.sebastianrasor.com/contact/success', 303)
+	return successRedirect;
 }
