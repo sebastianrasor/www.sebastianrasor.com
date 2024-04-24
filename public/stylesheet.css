@@ -59,7 +59,7 @@ main {
 	justify-content: center;
 	overflow: auto;
 }
-main > *:last-child {
+main > *:nth-last-child(1 of :not([hidden])) {
 	padding-bottom: calc(1em + 4ch);
 }
 form {
