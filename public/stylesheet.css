@@ -154,7 +154,7 @@ nav {
 	box-shadow: 0 0 0.5ch 1ch var(--secondary);
 	bottom: 1ch;
 	display: flex;
-	gap: var(--gap);
+	gap: 1ch;
 	justify-content: center;
 	left: 50%;
 	position: fixed;
