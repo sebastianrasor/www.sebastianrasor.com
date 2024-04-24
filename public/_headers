@@ -16,15 +16,17 @@
 # along with www.sebastianrasor.com. If not, see
 # <https://www.gnu.org/licenses/>.
 
+/*
+	X-Robots-Tag: noindex
+	X-Content-Type-Options: nosniff
+	X-XSS-Protection: 1; mode=block
+	X-Frame-Options: DENY
+	Referrer-Policy: no-referrer
 /
 	Link: </stylesheet.css>; rel="preload"; as="style"
+	! X-Robots-Tag
 /contact
 	Link: </stylesheet.css>; rel="preload"; as="style"
-/contact/bad-email
-	Link: </stylesheet.css>; rel="preload"; as="style"
-/contact/failure
-	Link: </stylesheet.css>; rel="preload"; as="style"
-/contact/success
-	Link: </stylesheet.css>; rel="preload"; as="style"
+	! X-Robots-Tag
 https://:project.pages.dev/*
 	X-Robots-Tag: noindex
