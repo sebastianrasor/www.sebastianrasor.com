@@ -19,9 +19,11 @@
  */
 
 :root {
-	--min-width: min(calc(100vw - 3rem), calc(32ch + 1.5rem));
+	--min-width: min(calc(100vw - 3rem), calc(32ch + var(--gap)));
 	--primary: #000;
 	--secondary: #fff;
+	--gap: 2rem;
+	--padding: 1ch;
 }
 @media (prefers-color-scheme: dark) {
 	:root {
@@ -49,7 +51,7 @@ a {
 article {
 	margin: auto;
 	min-width: var(--min-width);
-	padding: 1ch;
+	padding: var(--padding);
 	width: 50%;
 }
 main {
@@ -60,16 +62,16 @@ main {
 	overflow: auto;
 }
 main > *:nth-last-child(1 of :not([hidden])) {
-	padding-bottom: calc(1em + 4ch);
+	padding-bottom: calc(var(--padding) + 4ch);
 }
 form {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	gap: 1.5rem;
+	gap: var(--gap);
 	margin: auto;
 	min-width: var(--min-width);
-	padding: 1ch;
+	padding: var(--padding);
 	width: 50%;
 }
 .button {
@@ -80,7 +82,7 @@ form {
 	font-weight: bold;
 	height: 0.671em;
 	line-height: 0.796em;
-	padding: 1ch;
+	padding: var(--padding);
 	text-decoration-line: none;
 }
 .button-disabled {
@@ -118,7 +120,7 @@ textarea:read-only {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 1.5rem;
+	gap: var(--gap);
 	justify-content: space-between;
 	width: 100%;
 }
@@ -152,7 +154,7 @@ nav {
 	box-shadow: 0 0 0.5ch 1ch var(--secondary);
 	bottom: 1ch;
 	display: flex;
-	gap: 1ch;
+	gap: var(--gap);
 	justify-content: center;
 	left: 50%;
 	position: fixed;
