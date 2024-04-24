@@ -64,5 +64,8 @@ export async function sendEmail(context: EventContext, body: FormData): bool {
 		}),
 	});
 
+	const outcome = await result.json();
+	console.log(outcome);
+
 	return result.ok;
 }

@@ -20,6 +20,7 @@
  */
 
 export async function validateTurnstile(context: EventContext, body: FormData): bool {
+	const idempotencyKey = body.get('idempotency_key');
 	const token = body.get('cf-turnstile-response');
 	const ip = context.request.headers.get('CF-Connecting-IP');
 
@@ -27,6 +28,7 @@ export async function validateTurnstile(context: EventContext, body: FormData): 
 	formData.append('secret', context.env.TURNSTILE_SECRET_KEY);
 	formData.append('response', token);
 	formData.append('remoteip', ip);
+	formData.append('idempotency_key', idempotencyKey);
 
 	const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 	const result = await fetch(url, {

@@ -49,58 +49,98 @@
 		'-----END PGP PUBLIC KEY BLOCK-----'
 	].join('\n');
 
+	let blockEnableSubmit = false;
 	window.enableSubmit = () => {
-		document.getElementById("btnSubmit").disabled=false;
-		document.getElementById("btnSubmit").value="Send Message";
-		document.getElementById("btnSubmit").classList.remove("button-disabled");
+		if (blockEnableSubmit) return;
+		const form = document.getElementById("contact-form");
+		form.btnSubmit.disabled = false;
+		form.btnSubmit.value = "Send Message";
+		form.btnSubmit.classList.remove("button-disabled");
 	}
 
 	window.disableSubmit = () => {
-		document.getElementById("btnSubmit").disabled=true;
-		document.getElementById("btnSubmit").value="Please wait...";
-		document.getElementById("btnSubmit").classList.add("button-disabled");
+		const form = document.getElementById("contact-form");
+		form.btnSubmit.disabled = true;
+		form.btnSubmit.value = "Please wait...";
+		form.btnSubmit.classList.add("button-disabled");
 	}
 
-	let unencryptedMessage = '';
-	window.addEventListener("pageshow", (evt) => {
-		if (evt.persisted) {
-			disableSubmit();
-			turnstile.reset();
+	const idempotencyKey = crypto.randomUUID();
+	window.addEventListener("submit", async function(event) {
+		event.preventDefault();
+		const form = event.target;
 
-			const form = document.getElementById("contact-form");
-			form.name.readOnly = false;
-			form.email.readOnly = false;
-			form.message.readOnly = false;
-			form.message.value = unencryptedMessage;
-		};
-	});
-
-	window.onSubmit = async (evt) => {
-		evt.preventDefault();
-		if (document.getElementById("btnSubmit").disabled) {
-			return false;
-		} else {
-			disableSubmit();
-			const form = evt.target;
-			form.name.readOnly = true;
-			form.email.readOnly = true;
-			form.message.readOnly = true;
-			form.name.blur();
-			form.email.blur();
-			form.message.blur();
-			const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
-			const encrypted = await openpgp.encrypt({
-				message: await openpgp.createMessage({ text: "Content-Type: text/plain;charset=utf-8\n\n" + form.message.value }),
-				encryptionKeys: publicKey,
-			});
-			unencryptedMessage = form.message.value;
-			form.message.value = encrypted;
-			form.submit();
+		if (form.btnSubmit.disabled) {
+			return false
 		}
-	}
+
+		disableSubmit();
+		blockEnableSubmit = true;
+
+		form.name.readOnly = true;
+		form.email.readOnly = true;
+		form.message.readOnly = true;
+		form.name.blur();
+		form.email.blur();
+		form.message.blur();
+
+		const labelForMessage = document.querySelector("label[for=message]");
+		const originalInnerText = labelForMessage.innerText;
+		labelForMessage.innerText = "Your message is being encrypted prior to submission."
+
+		const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+		const encryptedMessage = await openpgp.encrypt({
+			message: await openpgp.createMessage({ text: "Content-Type: text/plain;charset=utf-8\n\n" + form.message.value }),
+			encryptionKeys: publicKey,
+		})
+
+		const unencryptedMessage = form.message.value;
+		form.message.value = encryptedMessage;
+
+		const formData = new FormData(form);
+		formData.append("idempotency_key", idempotencyKey);
+
+		const result = await fetch("/contact/submit", {
+			method: "POST",
+			body: formData,
+		})
+
+		const outcome = await result.json();
+
+		if ("error" in outcome) {
+			labelForMessage.innerText = outcome.error.message;
+			const duration = outcome.error.message.split(/\s/g).length / (200 / 60);
+
+			setTimeout(function() {
+				form.message.value = unencryptedMessage;
+				labelForMessage.innerText = originalInnerText;
+				form.name.readOnly = false;
+				form.email.readOnly = false;
+				form.message.readOnly = false;
+				blockEnableSubmit = false;
+				enableSubmit();
+			}, duration * 1000)
+
+			return false;
+		}
+
+		const success = document.getElementById("success");
+		form.hidden = true;
+		success.hidden = false;
+		turnstile.remove();
+
+		return false;
+	})
 </script>
 <main role="main">
-	<form id="contact-form" method="POST" action="/contact/submit" onSubmit="onSubmit(event)">
+    <article id="success" hidden>
+        <header>
+            <h1>Thanks for reaching out!</h1>
+            <aside>I've received your message and I'll get back to you as soon as possible.</aside>
+        </header>
+        <p><a href="https://www.sebastianrasor.com">Return to www.sebastianrasor.com</a>
+    </article>
+	<form id="contact-form">
 		<noscript>This form requires JavaScript to function.</noscript>
 		<div class="horizontal-container">
 			<div class="input-container">

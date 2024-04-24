@@ -27,18 +27,36 @@ import {validateTurnstile} from '../../src/turnstile_validation';
 export const onRequestPost: PagesFunction = async (context) => {
 	const body = await context.request.formData();
 
-	const badEmailRedirect = Response.redirect(urls.BAD_EMAIL_URL, 303);
-	const failureRedirect = Response.redirect(urls.FAILURE_URL, 303);
-	const successRedirect = Response.redirect(urls.SUCCESS_URL, 303);
+	const turnstileValid = await validateTurnstile(context, body);
+	if (!turnstileValid) return Response.json({
+		error: {
+			message: "Turnstile validation failed. Please try again."
+		}
+	}, {
+		status: 400,
+	});
 
-	try {
-		if (!await validateTurnstile(context, body)) return failureRedirect;
-		if (!await validateEmailAddress(context, body)) return badEmailRedirect;
-		if (!await sendEmail(context, body)) return failureRedirect;
-	} catch (e: unknown) {
-		console.error(e);
-		return failureRedirect;
-	}
+	const emailValid = await validateEmailAddress(context, body);
+	if (!emailValid) return Response.json({
+		error: {
+			message: "Please enter a valid email address."
+		}
+	}, {
+		status: 400,
+	});
 
-	return successRedirect;
+	const emailSent = await sendEmail(context, body);
+	if (!emailSent) return Response.json({
+		error: {
+			message: "Failed to send email. Please try again later."
+		}
+	}, {
+		status: 500,
+	});
+
+	return Response.json({
+		data: {
+			success: true
+		}
+	});
 }

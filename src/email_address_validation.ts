@@ -29,9 +29,5 @@ export async function validateEmailAddress(context: EventContext, body: FormData
 
 	const outcome = await result.json();
 
-	if ("error" in outcome) {
-		throw new Error(outcome.error.message);
-	}
-
 	return outcome.data.isEmailAddressValid;
 }

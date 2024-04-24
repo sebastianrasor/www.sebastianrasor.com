@@ -105,15 +105,6 @@ textarea:read-only {
 	overflow: hidden;
 	overflow-wrap: unset;
 }
-textarea:read-only + label {
-	text-transform: lowercase;
-}
-textarea:read-only + label::first-letter {
-	text-transform: uppercase;
-}
-textarea:read-only + label::after {
-	content: " is being encrypted prior to submission.";
-}
 .input-container {
 	display: grid;
 	width: 100%;
@@ -166,4 +157,7 @@ nav {
 	left: 50%;
 	position: fixed;
 	transform: translate(-50%);
+}
+[hidden] {
+	display: none;
 }
