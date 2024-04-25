@@ -130,8 +130,7 @@ textarea:read-only {
 input + label, textarea + label {
 	color: #757575;
 	pointer-events: none;
-	transition: color 0.25s;
-	transition: transform 0.25s;
+	transition: color 0.25s, transform 0.25s, width 0.25s;
 	transform-origin: bottom left;
 }
 input:focus + label,
@@ -141,8 +140,7 @@ textarea:not(:read-only, :placeholder-shown) + label {
 	color: var(--primary);
 	cursor: default;
 	transform: scale(75%) translate(0, 100%);
-	transition: color 0.25s;
-	transition: transform 0.25s;
+	transition: color 0.25s, transform 0.25s, width 0.25s;
 	width: calc(100% + (100% / 3));
 }
 .cf-turnstile {
@@ -152,9 +150,9 @@ textarea:not(:read-only, :placeholder-shown) + label {
 nav {
 	background: var(--secondary);
 	box-shadow: 0 0 0.5ch 1ch var(--secondary);
-	bottom: 1ch;
+	bottom: var(--padding);
 	display: flex;
-	gap: 1ch;
+	gap: var(--padding);
 	justify-content: center;
 	left: 50%;
 	position: fixed;
