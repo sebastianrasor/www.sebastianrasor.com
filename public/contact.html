@@ -40,16 +40,16 @@
 		<noscript>This form requires JavaScript to function.</noscript>
 		<div class="horizontal-container">
 			<div class="input-container">
-				<input type="text" id="name" name="name" placeholder=" " required>
+				<input type="text" id="name" name="name" autocomplete="name" placeholder=" " required>
 				<label for="name">Your Name</label>
 			</div>
 			<div class="input-container">
-				<input type="email" id="email" name="email" placeholder=" " required>
+				<input type="email" id="email" name="email" autocomplete="email" placeholder=" " required>
 				<label for="email">your@email.address</label>
 			</div>
 		</div>
 		<div class="input-container">
-			<textarea id="message" name="message" placeholder=" " rows="4" autocomplete="false" required></textarea>
+			<textarea id="message" name="message" autocomplete="no" placeholder=" " rows="4" autocomplete="false" required></textarea>
 			<label for="message">Your Message</label>
 		</div>
 		<input class="button button-disabled" type="submit" id="btnSubmit" name="btnSubmit" value="Please wait..." disabled>
