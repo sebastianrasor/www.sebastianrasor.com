@@ -18,7 +18,7 @@
 
 /*
 	Access-Control-Allow-Origin: null
-	Content-Security-Policy: default-src 'self'
+	Content-Security-Policy: default-src 'self'; connect-src 'self' https://cloudflareinsights.com; script-src-elem https://static.cloudflareinsights.com
 	Permissions-Policy: camera=(), display-capture=(), fullscreen=(), geolocation=(), microphone=(), publickey-credentials-get=(), screen-wake-lock=()
 	Referrer-Policy: no-referrer
 	X-Content-Type-Options: nosniff
@@ -26,14 +26,44 @@
 	X-Robots-Tag: noindex
 	X-XSS-Protection: 1; mode=block
 /
-	! Content-Security-Policy
 	! X-Robots-Tag
-	Content-Security-Policy: default-src 'self'; connect-src 'self' https://cloudflareinsights.com; script-src-elem https://static.cloudflareinsights.com
 	Link: </stylesheet.css>; rel="preload"; as="style"
 /contact
 	! Content-Security-Policy
 	! X-Robots-Tag
-	Content-Security-Policy: default-src 'self'; connect-src 'self' https://cloudflareinsights.com; script-src-elem 'self' https://static.cloudflareinsights.com https://challenges.cloudflare.com 'sha256-iA8NDb0jM6wuoIzXtPJZHIR2tzqvg5i9aDDbvD2/TzM='; frame-src https://challenges.cloudflare.com
+	Content-Security-Policy: default-src 'self'; connect-src 'self' https://cloudflareinsights.com; script-src-elem 'self' https://static.cloudflareinsights.com https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com
 	Link: </stylesheet.css>; rel="preload"; as="style"
+/.well-known/hosting-provider
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: text/plain
+/pgp-keys/*.asc
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: application/pgp-keys
+/*.js
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: text/javascript
+/*.mjs
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: text/javascript
+/*.map
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: application/json
+/*.xml
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: application/xml
+/*.txt
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: text/plain
+/*.css
+	! Content-Security-Policy
+	Content-Security-Policy: default-src 'none'
+	Content-Type: text/css
 https://:project.pages.dev/*
 	X-Robots-Tag: noindex
