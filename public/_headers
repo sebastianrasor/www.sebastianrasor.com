@@ -18,7 +18,7 @@
 
 /*
 	Access-Control-Allow-Origin: null
-	Cache-Control: max-age=300
+	Cache-Control: max-age=300, private
 	Content-Security-Policy: default-src 'self'; connect-src 'self' https://cloudflareinsights.com; script-src-elem 'self' https://static.cloudflareinsights.com
 	Permissions-Policy: camera=(), display-capture=(), fullscreen=(), geolocation=(), microphone=(), publickey-credentials-get=(), screen-wake-lock=()
 	Referrer-Policy: no-referrer
@@ -28,38 +28,42 @@
 	X-XSS-Protection: 1; mode=block
 /
 	! X-Robots-Tag
-	Cache-Control: max-age=300, private
 /contact
 	! Content-Security-Policy
 	! X-Robots-Tag
-	Cache-Control: max-age=300, private
 	Content-Security-Policy: default-src 'self'; connect-src 'self' https://cloudflareinsights.com; script-src-elem 'self' https://static.cloudflareinsights.com https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com
 /.well-known/hosting-provider
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=300
 	Content-Security-Policy: default-src 'none'
 	Content-Type: text/plain
 /pgp-keys/*.asc
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=31536000, immutable
 	Content-Security-Policy: default-src 'none'
 	Content-Type: application/pgp-keys
 /*.js
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=31536000, immutable
 	Content-Security-Policy: default-src 'none'
 	Content-Type: text/javascript
 /*.mjs
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=31536000, immutable
 	Content-Security-Policy: default-src 'none'
 	Content-Type: text/javascript
 /*.map
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=31536000, immutable
 	Content-Security-Policy: default-src 'none'
 	Content-Type: application/json
 /*.xml
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=31536000, immutable
 	Content-Security-Policy: default-src 'none'
@@ -68,6 +72,7 @@
 	! Cache-Control
 	Cache-Control: max-age=300
 /*.txt
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=31536000, immutable
 	Content-Security-Policy: default-src 'none'
@@ -79,6 +84,7 @@
 	! Cache-Control
 	Cache-Control: max-age=300
 /*.css
+	! Cache-Control
 	! Content-Security-Policy
 	Cache-Control: max-age=31536000, immutable
 	Content-Security-Policy: default-src 'none'
