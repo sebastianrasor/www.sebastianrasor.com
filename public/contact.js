@@ -19,7 +19,7 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-import * as openpgp from './openpgp.min.mjs';
+import * as openpgp from './openpgp.min.mjs?v=1';
 
 const PUBLIC_KEY_FINGERPRINTS = [
 	'0878ED162F8B295F25AC197BF20DE4BA5B36D4E9',
@@ -33,7 +33,7 @@ const labelForMessage = document.querySelector("label[for=message]");
 const originalInnerText = labelForMessage.innerText;
 
 window.fetchPublicKeyArmored = async (keyFingerprint) => {
-	const url = `/pgp-keys/${keyFingerprint}.asc`;
+	const url = `/pgp-keys/${keyFingerprint}.asc?v=1`;
 	const result = await fetch(url);
 	const outcome = await result.text();
 
