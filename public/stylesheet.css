@@ -62,7 +62,7 @@ main {
 	overflow: auto;
 }
 main > *:nth-last-child(1 of :not([hidden])) {
-	padding-bottom: calc(var(--padding) + 4ch);
+	padding-bottom: calc(var(--padding) + 4ch + 0.667em);
 }
 form {
 	align-items: center;
@@ -80,10 +80,18 @@ form {
 	color: var(--secondary);
 	cursor: pointer;
 	font-weight: bold;
-	height: 0.671em;
-	line-height: 0.796em;
+	height: 0.667em;
+	line-height: 0.667em;
 	padding: var(--padding);
 	text-decoration-line: none;
+}
+@supports (text-box-edge: cap alphabetic) and (text-box-trim: both) {
+	.button {
+		text-box-edge: cap alphabetic;
+		text-box-trim: both;
+		height: unset;
+		line-height: unset;
+	}
 }
 .button-disabled {
 	background-color: var(--secondary);
