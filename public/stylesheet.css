@@ -62,7 +62,7 @@ main {
 	overflow: auto;
 }
 main > *:nth-last-child(1 of :not([hidden])) {
-	padding-bottom: calc(var(--padding) + 4ch + 0.667em);
+	padding-bottom: calc(var(--gap) + 3ch + 0.667em)
 }
 form {
 	align-items: center;
