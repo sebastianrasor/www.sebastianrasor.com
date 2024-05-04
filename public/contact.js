@@ -22,133 +22,133 @@
 import * as openpgp from './openpgp.min.mjs?v=1';
 
 const PUBLIC_KEY_FINGERPRINTS = [
-	'0878ED162F8B295F25AC197BF20DE4BA5B36D4E9',
-	'4F398377C6B30D6397ECD7CE4A14A9E2AC256044',
-	'7832D6BEC9B064F47B7DA043F10C0FFD5B533126',
+  '0878ED162F8B295F25AC197BF20DE4BA5B36D4E9',
+  '4F398377C6B30D6397ECD7CE4A14A9E2AC256044',
+  '7832D6BEC9B064F47B7DA043F10C0FFD5B533126',
 ];
 
-const form = document.getElementById("contact-form");
+const form = document.getElementById('contact-form');
 const idempotencyKey = crypto.randomUUID();
-const labelForMessage = document.querySelector("label[for=message]");
+const labelForMessage = document.querySelector('label[for=message]');
 const originalInnerText = labelForMessage.innerText;
 
 window.fetchPublicKeyArmored = async (keyFingerprint) => {
-	const url = `/pgp-keys/${keyFingerprint}.asc?v=1`;
-	const result = await fetch(url);
-	const outcome = await result.text();
+  const url = `/pgp-keys/${keyFingerprint}.asc?v=1`;
+  const result = await fetch(url);
+  const outcome = await result.text();
 
-	return outcome;
+  return outcome;
 };
 
 window.constructPublicKeys = async (publicKeyFingerprints) => {
-	const publicKeys = [];
+  const publicKeys = [];
 
-	for (const publicKeyFingerprint of publicKeyFingerprints) {
-		const publicKeyArmored = await fetchPublicKeyArmored(publicKeyFingerprint);
-		const publicKey = await openpgp.readKey({
-			armoredKey: publicKeyArmored
-		});
-		publicKeys.push(publicKey);
-	};
+  for (const publicKeyFingerprint of publicKeyFingerprints) {
+    const publicKeyArmored = await fetchPublicKeyArmored(publicKeyFingerprint);
+    const publicKey = await openpgp.readKey({
+      armoredKey: publicKeyArmored
+    });
+    publicKeys.push(publicKey);
+  };
 
-	return publicKeys;
+  return publicKeys;
 };
 
 let blockEnableSubmit = false;
 window.enableSubmit = () => {
-	if (blockEnableSubmit) return;
+  if (blockEnableSubmit) return;
 
-	form.btnSubmit.disabled = false;
-	form.btnSubmit.value = "Send Message";
-	form.btnSubmit.classList.remove("button-disabled");
+  form.btnSubmit.disabled = false;
+  form.btnSubmit.value = 'Send Message';
+  form.btnSubmit.classList.remove('button-disabled');
 }
 
 window.disableSubmit = () => {
-	form.btnSubmit.disabled = true;
-	form.btnSubmit.value = "Please wait...";
-	form.btnSubmit.classList.add("button-disabled");
+  form.btnSubmit.disabled = true;
+  form.btnSubmit.value = 'Please wait...';
+  form.btnSubmit.classList.add('button-disabled');
 }
 
 window.handleError = (errorMessage, restoreMessage) => {
-	labelForMessage.innerText = errorMessage;
+  labelForMessage.innerText = errorMessage;
 
-	const duration = errorMessage.split(/\s/g).length / (200 / 60);
-	setTimeout(function() {
-		form.message.value = restoreMessage;
-		labelForMessage.innerText = originalInnerText;
-		form.name.readOnly = false;
-		form.email.readOnly = false;
-		form.message.readOnly = false;
-		blockEnableSubmit = false;
-		enableSubmit();
-	}, duration * 1000)
+  const duration = errorMessage.split(/\s/g).length / (200 / 60);
+  setTimeout(function() {
+    form.message.value = restoreMessage;
+    labelForMessage.innerText = originalInnerText;
+    form.name.readOnly = false;
+    form.email.readOnly = false;
+    form.message.readOnly = false;
+    blockEnableSubmit = false;
+    enableSubmit();
+  }, duration * 1000)
 
-	return false;
+  return false;
 }
 
-window.addEventListener("submit", async (event) => {
-	event.preventDefault();
+window.addEventListener('submit', async (event) => {
+  event.preventDefault();
 
-	const form = event.target;
+  const form = event.target;
 
-	if (form.btnSubmit.disabled) {
-		return false
-	}
+  if (form.btnSubmit.disabled) {
+    return false
+  }
 
-	disableSubmit();
-	blockEnableSubmit = true;
+  disableSubmit();
+  blockEnableSubmit = true;
 
-	form.name.readOnly = true;
-	form.email.readOnly = true;
-	form.message.readOnly = true;
-	form.name.blur();
-	form.email.blur();
-	form.message.blur();
+  form.name.readOnly = true;
+  form.email.readOnly = true;
+  form.message.readOnly = true;
+  form.name.blur();
+  form.email.blur();
+  form.message.blur();
 
-	labelForMessage.innerText =
-		"Your message is being encrypted prior to submission."
+  labelForMessage.innerText =
+    'Your message is being encrypted prior to submission.'
 
-	const encryptedMessage = await openpgp.encrypt({
-		message: await openpgp.createMessage({
-			text: "Content-Type: text/plain;charset=utf-8\n\n"
-				+ form.message.value
-		}),
-		encryptionKeys: await constructPublicKeys(PUBLIC_KEY_FINGERPRINTS),
-	})
+  const encryptedMessage = await openpgp.encrypt({
+    message: await openpgp.createMessage({
+      text: 'Content-Type: text/plain;charset=utf-8\n\n'
+        + form.message.value
+    }),
+    encryptionKeys: await constructPublicKeys(PUBLIC_KEY_FINGERPRINTS),
+  })
 
-	const unencryptedMessage = form.message.value;
-	form.message.value = encryptedMessage;
+  const unencryptedMessage = form.message.value;
+  form.message.value = encryptedMessage;
 
-	const formData = new FormData(form);
-	formData.append("idempotency_key", idempotencyKey);
+  const formData = new FormData(form);
+  formData.append('idempotency_key', idempotencyKey);
 
-	const result = await fetch("/contact/submit", {
-		method: "POST",
-		body: formData,
-	})
+  const result = await fetch('/contact/submit', {
+    method: 'POST',
+    body: formData,
+  })
 
-	try {
-		const outcome = await result.json();
+  try {
+    const outcome = await result.json();
 
-		if ("error" in outcome && "message" in outcome.error) {
-			handleError(outcome.error.message, unencryptedMessage);
-			return false;
-		}
+    if ('error' in outcome && 'message' in outcome.error) {
+      handleError(outcome.error.message, unencryptedMessage);
+      return false;
+    }
 
-		if (!result.ok) {
-			throw new Error('Response not ok');
-		}
-	} catch(error) {
-		handleError(
-			"Unexpected server error. Please try again later.",
-			unencryptedMessage);
-		return false;
-	}
+    if (!result.ok) {
+      throw new Error('Response not ok');
+    }
+  } catch(error) {
+    handleError(
+      'Unexpected server error. Please try again later.',
+      unencryptedMessage);
+    return false;
+  }
 
-	const success = document.getElementById("success");
-	form.hidden = true;
-	success.hidden = false;
-	turnstile.remove();
+  const success = document.getElementById('success');
+  form.hidden = true;
+  success.hidden = false;
+  turnstile.remove();
 
-	return false;
+  return false;
 })

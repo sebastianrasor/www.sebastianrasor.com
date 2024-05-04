@@ -20,14 +20,14 @@
  */
 
 export async function validateEmailAddress(context: EventContext, body: FormData): bool {
-	const url = 'https://checkemail.sebastianrasor.com/' + body.get('email');
-	const result = await fetch(url, {
-		headers: {
-			'Authorization': `Bearer ${context.env.CHECKEMAIL_KEY}`
-		}
-	});
+  const url = 'https://checkemail.sebastianrasor.com/' + body.get('email');
+  const result = await fetch(url, {
+    headers: {
+      'Authorization': `Bearer ${context.env.CHECKEMAIL_KEY}`
+    }
+  });
 
-	const outcome = await result.json();
+  const outcome = await result.json();
 
-	return outcome.data.isEmailAddressValid;
+  return outcome.data.isEmailAddressValid;
 }
