@@ -127,17 +127,21 @@ window.addEventListener("submit", async (event) => {
 		body: formData,
 	})
 
-	if (!result.ok) {
+	try {
+		const outcome = await result.json();
+
+		if ("error" in outcome && "message" in outcome.error) {
+			handleError(outcome.error.message, unencryptedMessage);
+			return false;
+		}
+
+		if (!result.ok) {
+			throw new Error('Response not ok');
+		}
+	} catch(error) {
 		handleError(
 			"Unexpected server error. Please try again later.",
 			unencryptedMessage);
-		return false;
-	}
-
-	const outcome = await result.json();
-
-	if ("error" in outcome) {
-		handleError(outcome.error.message, unencryptedMessage);
 		return false;
 	}
 
