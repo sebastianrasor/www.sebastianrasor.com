@@ -22,7 +22,7 @@
 import * as openpgp from './openpgp.min.mjs?v=1';
 
 const ENCRYPTION_MESSAGE =
-    'Your message is being encrypted prior to submission.'
+  'Your message is being encrypted prior to submission.'
 const PUBLIC_KEY_FINGERPRINTS = [
   '0878ED162F8B295F25AC197BF20DE4BA5B36D4E9',
   '4F398377C6B30D6397ECD7CE4A14A9E2AC256044',
