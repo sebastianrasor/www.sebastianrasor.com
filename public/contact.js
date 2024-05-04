@@ -21,11 +21,14 @@
 
 import * as openpgp from './openpgp.min.mjs?v=1';
 
+const ENCRYPTION_MESSAGE =
+    'Your message is being encrypted prior to submission.'
 const PUBLIC_KEY_FINGERPRINTS = [
   '0878ED162F8B295F25AC197BF20DE4BA5B36D4E9',
   '4F398377C6B30D6397ECD7CE4A14A9E2AC256044',
   '7832D6BEC9B064F47B7DA043F10C0FFD5B533126',
 ];
+const READING_WPM = 200;
 
 const form = document.getElementById('contact-form');
 const idempotencyKey = crypto.randomUUID();
@@ -72,7 +75,7 @@ window.disableSubmit = () => {
 window.handleError = (errorMessage, restoreMessage) => {
   labelForMessage.innerText = errorMessage;
 
-  const duration = errorMessage.split(/\s/g).length / (200 / 60);
+  const duration = errorMessage.split(/\s/g).length / (READING_WPM / 60);
   setTimeout(function() {
     form.message.value = restoreMessage;
     labelForMessage.innerText = originalInnerText;
@@ -105,27 +108,38 @@ window.addEventListener('submit', async (event) => {
   form.email.blur();
   form.message.blur();
 
-  labelForMessage.innerText =
-    'Your message is being encrypted prior to submission.'
+  let result;
+  let unencryptedMessage;
+  await Promise.all([
+    new Promise((resolve) => setTimeout(
+      resolve,
+      ENCRYPTION_MESSAGE.split(/\s/g).length / (READING_WPM / 60) * 1000
+    )),
+    new Promise(async (resolve) => {
+      labelForMessage.innerText = ENCRYPTION_MESSAGE;
 
-  const encryptedMessage = await openpgp.encrypt({
-    message: await openpgp.createMessage({
-      text: 'Content-Type: text/plain;charset=utf-8\n\n'
-        + form.message.value
+      const encryptedMessage = await openpgp.encrypt({
+        message: await openpgp.createMessage({
+          text: 'Content-Type: text/plain;charset=utf-8\n\n'
+            + form.message.value,
+        }),
+        encryptionKeys: await constructPublicKeys(PUBLIC_KEY_FINGERPRINTS),
+      })
+
+      unencryptedMessage = form.message.value;
+      form.message.value = encryptedMessage;
+
+      const formData = new FormData(form);
+      formData.append('idempotency_key', idempotencyKey);
+
+      result = await fetch('/contact/submit', {
+        method: 'POST',
+        body: formData,
+      })
+
+      resolve();
     }),
-    encryptionKeys: await constructPublicKeys(PUBLIC_KEY_FINGERPRINTS),
-  })
-
-  const unencryptedMessage = form.message.value;
-  form.message.value = encryptedMessage;
-
-  const formData = new FormData(form);
-  formData.append('idempotency_key', idempotencyKey);
-
-  const result = await fetch('/contact/submit', {
-    method: 'POST',
-    body: formData,
-  })
+  ]);
 
   try {
     const outcome = await result.json();
