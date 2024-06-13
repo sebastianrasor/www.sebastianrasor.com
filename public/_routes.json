@@ -1,5 +1,12 @@
 {
-   "version": 1,
-   "include": ["/contact/submit", "/favicon.ico"],
-   "exclude": []
+  "version": 1,
+  "include": [
+    "/contact/submit",
+    "/favicon.ico",
+    "/pub/ada7b8c9beab6e41aaa0236f5a22f7979b6072a3.asc",
+    "/7yw7wcjbBTFXVSDyuddb5yimtx1oB8DAQgHiH4EGBYIACYCGwwWIQQIeO0WL4sp",
+    "/hall-of-fame",
+    "/pgp-key.txt"
+  ],
+  "exclude": []
 }
