@@ -20,7 +20,7 @@
  */
 
 import * as urls from '../../src/urls';
-import {sendEmail} from '../../src/cloudflare_send';
+import {sendEmail} from '../../src/mailchannels_send';
 import {validateEmailAddress} from '../../src/email_address_validation';
 import {validateTurnstile} from '../../src/turnstile_validation';
 
