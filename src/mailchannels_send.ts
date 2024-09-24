@@ -27,6 +27,7 @@ export async function sendEmail(context: EventContext, body: FormData): bool {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
+			'X-API-Key': context.env.MAILCHANNELS_API_KEY,
     },
     body: JSON.stringify({
       personalizations: [
