@@ -4,13 +4,13 @@
  *
  * This file is part of www.sebastianrasor.com
  *
- * www.sebastianrasor.com is free software: you can redistribute it and/or 
+ * www.sebastianrasor.com is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * www.sebastianrasor.com is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero
  * General Public License for more details.
  *
@@ -19,15 +19,16 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-export async function validateEmailAddress(context: EventContext, body: FormData): bool {
-  const url = 'https://checkemail.sebastianrasor.com/' + body.get('email');
-  const result = await fetch(url, {
+export async function validateEmailAddress(
+  context: EventContext,
+  body: FormData,
+): bool {
+  const url = "https://checkemail.rasor.us/" + body.get("email");
+  const response = await fetch(url, {
     headers: {
-      'Authorization': `Bearer ${context.env.CHECKEMAIL_KEY}`
-    }
+      Authorization: `Bearer ${context.env.CHECKEMAIL_KEY}`,
+    },
   });
 
-  const outcome = await result.json();
-
-  return outcome.data.isEmailAddressValid;
+  return response.ok;
 }
